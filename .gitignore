@@ -12,6 +12,10 @@
 bin/
 gen/
 
+# Always modified ......
+.idea/misc.xml
+.idea/workspace.xml
+
 # Gradle files
 .gradle/
 build/
