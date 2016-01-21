@@ -1,4 +1,4 @@
-package lightning.francescoboschini.com.lightning;
+package francescoboschini.com.lightning;
 
 
 import android.content.Context;
@@ -9,6 +9,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import lightning.francescoboschini.com.lightning.R;
 
 public class RemoteFetch {
 private static final String OPEN_WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";

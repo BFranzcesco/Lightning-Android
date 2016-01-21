@@ -1,4 +1,4 @@
-package lightning.francescoboschini.com.lightning;
+package francescoboschini.com.lightning;
 
 public class Weather {
 

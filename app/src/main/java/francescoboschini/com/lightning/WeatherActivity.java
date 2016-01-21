@@ -1,4 +1,4 @@
-package lightning.francescoboschini.com.lightning;
+package francescoboschini.com.lightning;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -10,9 +10,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -27,6 +24,8 @@ import java.util.Date;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
+
+import lightning.francescoboschini.com.lightning.R;
 
 public class WeatherActivity extends AppCompatActivity implements View.OnClickListener{
 
