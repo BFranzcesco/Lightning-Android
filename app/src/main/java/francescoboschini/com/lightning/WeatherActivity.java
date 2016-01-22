@@ -16,6 +16,8 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import com.crashlytics.android.Crashlytics;
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import java.text.DateFormat;
@@ -48,6 +50,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.coordinator_layout);
 
         handler = new Handler();
@@ -73,7 +76,6 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             public void run() {
                 updateCityWeatherData(cityRepository.getSavedCity());
-                Snackbar.make(coordinatorLayout, "Weather updated!", Snackbar.LENGTH_SHORT).show();
             }
         }, 0, DEFAULT_WEATHER_REFRESHING_TIME, TimeUnit.MINUTES);
 
