@@ -41,9 +41,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingTop="16dp"
         android:paddingRight="32dp"
         android:paddingLeft="32dp"
-        android:layout_below="@+id/iv_weather" >
+        android:layout_below="@+id/shadow" >
 
         <TextView
             android:id="@+id/tv_place"
@@ -81,16 +82,13 @@
         <ListView
             android:id="@+id/forecast_list_view"
             android:layout_marginTop="8dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
         </ListView>
 
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
+    <com.melnykov.fab.FloatingActionButton
         android:id="@+id/choose_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
