@@ -35,6 +35,7 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
             viewHolder.description = (TextView)convertView.findViewById(R.id.description);
             viewHolder.temperature = (TextView)convertView.findViewById(R.id.temperature);
             viewHolder.date = (TextView)convertView.findViewById(R.id.date);
+            viewHolder.weatherIcon = (ImageView)convertView.findViewById(R.id.weather_icon);
 
             convertView.setTag(viewHolder);
 
@@ -46,6 +47,7 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
         viewHolder.temperature.setText(forecastItem.getTemperature() + getContext().getResources().getString(R.string.celsius_degrees));
         viewHolder.description.setText(forecastItem.getDescription());
         viewHolder.date.setText(Utils.simpleFormatLongDate(forecastItem.getDate()));
+        new WeatherIconHandler(getContext()).setWeatherIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode(), 0, 0);
 
         return convertView;
     }

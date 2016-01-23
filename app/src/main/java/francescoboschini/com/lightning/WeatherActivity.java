@@ -72,6 +72,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
 
         chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
         chooseCityButton.setOnClickListener(this);
+        chooseCityButton.attachToListView(forecastListView);
 
         cityRepository = new CityRepository(this);
 

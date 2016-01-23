@@ -25,25 +25,17 @@
         android:orientation="horizontal"
         android:background="@drawable/background_with_shadow_land" />
 
-    <ImageView
-        android:id="@+id/iv_weather"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="144dp"
-        android:layout_marginBottom="16dp"/>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:paddingRight="32dp"
         android:paddingLeft="32dp"
-        android:paddingTop="44dp"
+        android:paddingTop="16dp"
         android:layout_toRightOf="@+id/shadow"
         android:layout_toEndOf="@+id/shadow"
         android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true">
+        android:id="@+id/weather_layout">
 
         <TextView
             android:id="@+id/tv_place"
@@ -77,19 +69,28 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/weather_layout">
+        android:layout_marginTop="16dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@id/weather_layout"
+        android:layout_alignLeft="@id/weather_layout"
+        android:layout_alignRight="@id/weather_layout">
 
         <ListView
             android:id="@+id/forecast_list_view"
-            android:layout_marginTop="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </ListView>
+            android:layout_height="match_parent" />
 
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/iv_weather"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="72dp"
+        android:layout_marginBottom="16dp"/>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/choose_city"

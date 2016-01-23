@@ -13,8 +13,8 @@
         android:layout_height="wrap_content"
         android:gravity="left"
         android:paddingLeft="32dp"
-        android:paddingTop="48dp"
-        android:paddingBottom="48dp"
+        android:paddingTop="36dp"
+        android:paddingBottom="36dp"
         android:text="--,- °C"
         android:textColor="@color/light_asphalt_blue"
         android:textSize="48sp"
@@ -32,7 +32,7 @@
         android:id="@+id/iv_weather"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="76dp"
         android:layout_alignRight="@+id/choose_city"
         android:layout_alignEnd="@+id/choose_city" />
 
@@ -74,14 +74,23 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/shadow_2"
+        android:layout_width="match_parent"
+        android:layout_height="12dp"
+        android:layout_marginTop="16dp"
+        android:rotation="180"
+        android:orientation="horizontal"
+        android:layout_below="@id/weather_layout"
+        android:background="@drawable/background_with_shadow" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/weather_layout">
+        android:layout_below="@id/shadow_2">
 
         <ListView
             android:id="@+id/forecast_list_view"
-            android:layout_marginTop="8dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
         </ListView>
