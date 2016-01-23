@@ -37,6 +37,7 @@
         android:layout_alignEnd="@+id/choose_city" />
 
     <LinearLayout
+        android:id="@+id/weather_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -69,6 +70,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="16sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/weather_layout">
+
+        <ListView
+            android:id="@+id/forecast_list_view"
+            android:layout_marginTop="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
 
     </LinearLayout>
 
