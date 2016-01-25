@@ -15,7 +15,7 @@ public class WeatherIconHandler {
         this.context = context;
     }
 
-    public void setWeatherIcon(ImageView image, int actualId, long sunrise, long sunset) {
+    public void setWeatherIconBasedOnCurrentTime(ImageView image, int actualId, long sunrise, long sunset) {
         sunrise = sunrise * 1000;
         sunset = sunset * 1000;
 
@@ -28,6 +28,34 @@ public class WeatherIconHandler {
             } else {
                 image.setImageDrawable(context.getResources().getDrawable(R.drawable.clear_night));
             }
+        } else {
+            switch (id) {
+                case 2:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.thunder));
+                    break;
+                case 3:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.drizzle));
+                    break;
+                case 7:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.foggy));
+                    break;
+                case 8:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.cloudy));
+                    break;
+                case 6:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.snowy));
+                    break;
+                case 5:
+                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.rainy));
+                    break;
+            }
+        }
+    }
+
+    public void setWeatherIcon(ImageView image, int actualId) {
+        int id = actualId / 100;
+        if (actualId == 800) {
+            image.setImageDrawable(context.getResources().getDrawable(R.drawable.sunny));
         } else {
             switch (id) {
                 case 2:

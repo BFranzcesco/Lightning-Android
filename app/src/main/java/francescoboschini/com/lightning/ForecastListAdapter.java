@@ -8,7 +8,6 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import lightning.francescoboschini.com.lightning.R;
@@ -45,9 +44,9 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
 
         ForecastItem forecastItem = getItem(position);
         viewHolder.temperature.setText(forecastItem.getTemperature() + getContext().getResources().getString(R.string.celsius_degrees));
-        viewHolder.description.setText(forecastItem.getDescription());
+        viewHolder.description.setText(Utils.toFirstCharUpperCase(forecastItem.getDescription()));
         viewHolder.date.setText(Utils.simpleFormatLongDate(forecastItem.getDate()));
-        new WeatherIconHandler(getContext()).setWeatherIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode(), 0, 0);
+        new WeatherIconHandler(getContext()).setWeatherIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode());
 
         return convertView;
     }

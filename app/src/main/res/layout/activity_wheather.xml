@@ -106,5 +106,7 @@
         android:layout_margin="32dp"
         android:padding="30dp"
         android:src="@drawable/marker"
-        fab:theme="@style/AppTheme" />
+        fab:fab_colorNormal="@color/light_blue"
+        fab:fab_colorPressed="@color/light_blue_dark"
+        fab:fab_colorRipple="@color/light_asphalt_blue"/>
 </RelativeLayout>

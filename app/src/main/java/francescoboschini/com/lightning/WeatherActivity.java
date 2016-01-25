@@ -33,7 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 import lightning.francescoboschini.com.lightning.R;
 
-public class WeatherActivity extends AppCompatActivity implements View.OnClickListener{
+public class WeatherActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface {
 
     public static final String TEMPERATURE_FORMAT = "%.1f";
     public static final int DEFAULT_WEATHER_REFRESHING_TIME = 60;
@@ -51,6 +51,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     private ListView forecastListView;
     private List<ForecastItem> forecastList;
     private ForecastListAdapter adapter;
+    private WeatherUpdater weatherUpdater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,20 +60,9 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         setContentView(R.layout.coordinator_layout);
 
         handler = new Handler();
+        weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
 
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        tvTemperature = (TextView) findViewById(R.id.tv_temperature);
-        tvPlace = (TextView) findViewById(R.id.tv_place);
-        tvDescription = (TextView) findViewById(R.id.tv_description);
-        tvHumidity = (TextView) findViewById(R.id.tv_humidity);
-        tvLastUpdate = (TextView) findViewById(R.id.tv_last_update);
-        weatherImage = (ImageView) findViewById(R.id.iv_weather);
-
-        forecastListView = (ListView) findViewById(R.id.forecast_list_view);
-
-        chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
-        chooseCityButton.setOnClickListener(this);
-        chooseCityButton.attachToListView(forecastListView);
+        setUpUI();
 
         cityRepository = new CityRepository(this);
 
@@ -80,8 +70,8 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
         forecastListView.setAdapter(adapter);
 
-        updateCityWeatherData(cityRepository.getSavedCity());
-        updateCityForecastData(cityRepository.getSavedCity());
+        updateTodayWeather(cityRepository.getSavedCity());
+        updateHourlyForecast(cityRepository.getSavedCity());
 
         sharedPreferences = this.getPreferences(Activity.MODE_PRIVATE);
 
@@ -100,57 +90,32 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         });
     }
 
-    private void updateAllWeatherData(String savedCity) {
-        updateCityWeatherData(savedCity);
-        updateCityForecastData(savedCity);
+    private void setUpUI() {
+        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        tvTemperature = (TextView) findViewById(R.id.tv_temperature);
+        tvPlace = (TextView) findViewById(R.id.tv_place);
+        tvDescription = (TextView) findViewById(R.id.tv_description);
+        tvHumidity = (TextView) findViewById(R.id.tv_humidity);
+        tvLastUpdate = (TextView) findViewById(R.id.tv_last_update);
+        weatherImage = (ImageView) findViewById(R.id.iv_weather);
+        forecastListView = (ListView) findViewById(R.id.forecast_list_view);
+        chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
+
+        chooseCityButton.setOnClickListener(this);
+        chooseCityButton.attachToListView(forecastListView);
     }
 
-    private void updateCityWeatherData(final String city) {
-        new Thread(){
-            public void run(){
-                final JSONObject json = RemoteFetch.getWeather(getApplicationContext(), city);
-                if(json == null){
-                    handler.post(new Runnable(){
-                        public void run() {
-                            Snackbar.make(coordinatorLayout, getString(R.string.place) + Utils.toFirstCharUpperCase(city) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    handler.post(new Runnable(){
-                        public void run() {
-                            cityRepository.saveCity(city);
-                            renderWeather(convertToWeather(json));
-                        }
-                    });
-                }
-            }
-        }.start();
+    private void updateAllWeatherData(String city) {
+        updateTodayWeather(city);
+        updateHourlyForecast(city);
     }
 
-    private void updateCityForecastData(final String city) {
-        new Thread(){
-            public void run(){
-                final JSONObject json = RemoteFetch.getForecast(getApplicationContext(), city);
-                if(json == null){
-                    handler.post(new Runnable(){
-                        public void run(){
-                            Snackbar.make(coordinatorLayout, getString(R.string.place) + Utils.toFirstCharUpperCase(city) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
-                        }
-                    });
-                } else {
-                    handler.post(new Runnable(){
-                        public void run(){
-                            cityRepository.saveCity(city);
-                            try {
-                                renderForecast(convertToForecast(json));
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    });
-                }
-            }
-        }.start();
+    private void updateTodayWeather(final String city) {
+        weatherUpdater.getTodayWeather(city);
+    }
+
+    private void updateHourlyForecast(final String city) {
+        weatherUpdater.getHourlyForecast(city);
     }
 
     private List<ForecastItem> convertToForecast(JSONObject json) throws JSONException {
@@ -210,7 +175,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
             String updatedOn = Utils.formatLongDate(weather.getLastUpdate());
             tvLastUpdate.setText(getString(R.string.last_update) + updatedOn);
 
-            new WeatherIconHandler(getApplicationContext()).setWeatherIcon(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
+            new WeatherIconHandler(getApplicationContext()).setWeatherIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
         } else {
             Log.e("Lightning", "Weather object null");
             Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
@@ -218,9 +183,9 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     }
 
     private void renderForecast(List<ForecastItem> forecast) {
+        forecastList.clear();
         for(int i=0; i<forecast.size(); i++) {
             forecastList.add(forecast.get(i));
-
         }
         adapter.notifyDataSetChanged();
     }
@@ -244,5 +209,26 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
                         updateAllWeatherData(input.toString());
                     }
                 }).show();
+    }
+
+    @Override
+    public void onWeatherSuccess(String city, JSONObject json) {
+        cityRepository.saveCity(city);
+        renderWeather(convertToWeather(json));
+    }
+
+    @Override
+    public void onFailure(String city) {
+        Snackbar.make(coordinatorLayout, getString(R.string.place) + Utils.toFirstCharUpperCase(city) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onForecastSuccess(String city, JSONObject json) {
+        cityRepository.saveCity(city);
+        try {
+            renderForecast(convertToForecast(json));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 }
