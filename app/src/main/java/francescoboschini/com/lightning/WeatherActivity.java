@@ -22,7 +22,6 @@ import com.melnykov.fab.FloatingActionButton;
 import io.fabric.sdk.android.Fabric;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -52,6 +51,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     private List<ForecastItem> forecastList;
     private ForecastListAdapter adapter;
     private WeatherUpdater weatherUpdater;
+    private View currentWeatherInfosHeader;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,22 +70,22 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
         forecastListView.setAdapter(adapter);
 
-        updateTodayWeather(cityRepository.getSavedCity());
-        updateHourlyForecast(cityRepository.getSavedCity());
+        updateCurrentWeather(cityRepository.getSavedCity());
+        updateForecast(cityRepository.getSavedCity());
 
         sharedPreferences = this.getPreferences(Activity.MODE_PRIVATE);
 
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
             public void run() {
-                updateAllWeatherData(cityRepository.getSavedCity());
+                updateWeatherAndForecast(cityRepository.getSavedCity());
             }
         }, 0, DEFAULT_WEATHER_REFRESHING_TIME, TimeUnit.MINUTES);
 
         weatherImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                updateAllWeatherData(cityRepository.getSavedCity());
+                updateWeatherAndForecast(cityRepository.getSavedCity());
             }
         });
     }
@@ -93,54 +93,65 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     private void setUpUI() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         tvTemperature = (TextView) findViewById(R.id.tv_temperature);
-        tvPlace = (TextView) findViewById(R.id.tv_place);
-        tvDescription = (TextView) findViewById(R.id.tv_description);
-        tvHumidity = (TextView) findViewById(R.id.tv_humidity);
-        tvLastUpdate = (TextView) findViewById(R.id.tv_last_update);
         weatherImage = (ImageView) findViewById(R.id.iv_weather);
+
         forecastListView = (ListView) findViewById(R.id.forecast_list_view);
+        currentWeatherInfosHeader = getLayoutInflater().inflate(R.layout.current_weather_infos_layout, forecastListView, false);
+        tvPlace = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_place);
+        tvDescription = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_description);
+        tvHumidity = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_humidity);
+        tvLastUpdate = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_last_update);
+
+        forecastListView.addHeaderView(currentWeatherInfosHeader);
+
         chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
 
         chooseCityButton.setOnClickListener(this);
         chooseCityButton.attachToListView(forecastListView);
     }
 
-    private void updateAllWeatherData(String city) {
-        updateTodayWeather(city);
-        updateHourlyForecast(city);
+    private void updateWeatherAndForecast(String city) {
+        updateCurrentWeather(city);
+        updateForecast(city);
     }
 
-    private void updateTodayWeather(final String city) {
-        weatherUpdater.getTodayWeather(city);
+    private void updateCurrentWeather(final String city) {
+        weatherUpdater.getCurrentWeather(city);
     }
 
-    private void updateHourlyForecast(final String city) {
-        weatherUpdater.getHourlyForecast(city);
+    private void updateForecast(final String city) {
+        weatherUpdater.getForecast(city);
     }
 
-    private List<ForecastItem> convertToForecast(JSONObject json) throws JSONException {
+    private List<ForecastItem> convertToForecast(JSONObject json) {
         List<ForecastItem> forecast = new ArrayList<ForecastItem>();
 
-        JSONArray jsonList = json.getJSONArray("list");
+        try {
+            JSONArray jsonList = json.getJSONArray("list");
 
-        for(int i=0; i<(jsonList.length()/2); i++) {
-            JSONObject jsonObject = jsonList.getJSONObject(i);
-            JSONObject main = jsonObject.getJSONObject("main");
-            JSONArray weatherList = jsonObject.getJSONArray("weather");
-            String description = weatherList.getJSONObject(0).getString("description");
-            int weatherId = weatherList.getJSONObject(0).getInt("id");
+            for(int i=0; i<(jsonList.length()/2); i++) {
+                JSONObject jsonObject = jsonList.getJSONObject(i);
+                JSONObject main = jsonObject.getJSONObject("main");
+                JSONArray weatherList = jsonObject.getJSONArray("weather");
+                String description = weatherList.getJSONObject(0).getString("description");
+                int weatherId = weatherList.getJSONObject(0).getInt("id");
 
-            forecast.add(new ForecastItem (
-                    main.getDouble("temp"),
-                    description,
-                    jsonObject.getLong("dt"),
-                    weatherId));
+                forecast.add(new ForecastItem (
+                        main.getDouble("temp"),
+                        description,
+                        jsonObject.getLong("dt"),
+                        weatherId));
+            }
+
+        } catch(Exception e) {
+            Log.e("Lightning", "One or more fields not found in the JSON data");
+            Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
         }
 
         return forecast;
     }
 
-    private Weather convertToWeather(JSONObject json) {
+    private Weather convertToCurrentWeather(JSONObject json) {
         Weather weather = null;
         try {
             JSONObject details = json.getJSONArray("weather").getJSONObject(0);
@@ -175,14 +186,14 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
             String updatedOn = Utils.formatLongDate(weather.getLastUpdate());
             tvLastUpdate.setText(getString(R.string.last_update) + updatedOn);
 
-            new WeatherIconHandler(getApplicationContext()).setWeatherIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
+            new WeatherIconHandler(getApplicationContext()).setIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
         } else {
             Log.e("Lightning", "Weather object null");
             Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
         }
     }
 
-    private void renderForecast(List<ForecastItem> forecast) {
+    private void populateForecastList(List<ForecastItem> forecast) {
         forecastList.clear();
         for(int i=0; i<forecast.size(); i++) {
             forecastList.add(forecast.get(i));
@@ -206,7 +217,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
                 .input(getResources().getString(R.string.alert_input_hint), null, new MaterialDialog.InputCallback() {
                     @Override
                     public void onInput(MaterialDialog dialog, CharSequence input) {
-                        updateAllWeatherData(input.toString());
+                        updateWeatherAndForecast(input.toString());
                     }
                 }).show();
     }
@@ -214,7 +225,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onWeatherSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
-        renderWeather(convertToWeather(json));
+        renderWeather(convertToCurrentWeather(json));
     }
 
     @Override
@@ -225,10 +236,6 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onForecastSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
-        try {
-            renderForecast(convertToForecast(json));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        populateForecastList(convertToForecast(json));
     }
 }

@@ -9,72 +9,49 @@ import lightning.francescoboschini.com.lightning.R;
 
 public class WeatherIconHandler {
 
+    // GET MILLISEC from DATE http://www.fileformat.info/tip/java/date2millis.htm
+    public static final int DEFAULT_SUNRISE_TIME = 1;
+    public static final int DEFAULT_SUNSET_TIME = 2000000000;
     private Context context;
 
     public WeatherIconHandler(Context context) {
         this.context = context;
     }
 
-    public void setWeatherIconBasedOnCurrentTime(ImageView image, int actualId, long sunrise, long sunset) {
+    public void setIcon(ImageView imageView, int weatherId) {
+        setIconBasedOnCurrentTime(imageView, weatherId, DEFAULT_SUNRISE_TIME, DEFAULT_SUNSET_TIME);
+    }
+
+    public void setIconBasedOnCurrentTime(ImageView imageView, int weatherId, long sunrise, long sunset) {
         sunrise = sunrise * 1000;
         sunset = sunset * 1000;
 
-        int id = actualId / 100;
-
-        if (actualId == 800) {
+        if (weatherId == 800) {
             long currentTime = new Date().getTime();
             if (currentTime >= sunrise && currentTime < sunset) {
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.sunny));
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.sunny));
             } else {
-                image.setImageDrawable(context.getResources().getDrawable(R.drawable.clear_night));
+                imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.clear_night));
             }
         } else {
-            switch (id) {
+            switch (weatherId / 100) {
                 case 2:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.thunder));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.thunder));
                     break;
                 case 3:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.drizzle));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.drizzle));
                     break;
                 case 7:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.foggy));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.foggy));
                     break;
                 case 8:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.cloudy));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.cloudy));
                     break;
                 case 6:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.snowy));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.snowy));
                     break;
                 case 5:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.rainy));
-                    break;
-            }
-        }
-    }
-
-    public void setWeatherIcon(ImageView image, int actualId) {
-        int id = actualId / 100;
-        if (actualId == 800) {
-            image.setImageDrawable(context.getResources().getDrawable(R.drawable.sunny));
-        } else {
-            switch (id) {
-                case 2:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.thunder));
-                    break;
-                case 3:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.drizzle));
-                    break;
-                case 7:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.foggy));
-                    break;
-                case 8:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.cloudy));
-                    break;
-                case 6:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.snowy));
-                    break;
-                case 5:
-                    image.setImageDrawable(context.getResources().getDrawable(R.drawable.rainy));
+                    imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.rainy));
                     break;
             }
         }

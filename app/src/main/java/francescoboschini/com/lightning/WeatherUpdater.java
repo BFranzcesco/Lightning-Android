@@ -15,7 +15,7 @@ public class WeatherUpdater {
         this.updateWeatherInterface = updateWeatherInterface;
     }
 
-    public void getTodayWeather(final String city) {
+    public void getCurrentWeather(final String city) {
         handler = new Handler();
         new Thread(){
             public void run(){
@@ -37,7 +37,7 @@ public class WeatherUpdater {
         }.start();
     }
 
-    public void getHourlyForecast(final String city) {
+    public void getForecast(final String city) {
         handler = new Handler();
         new Thread() {
             public void run() {

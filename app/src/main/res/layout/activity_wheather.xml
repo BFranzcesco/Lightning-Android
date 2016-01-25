@@ -21,6 +21,20 @@
         android:background="@android:color/white" />
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@id/tv_temperature">
+
+        <ListView
+            android:id="@+id/forecast_list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </ListView>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/shadow"
         android:layout_width="match_parent"
         android:layout_height="12dp"
@@ -35,67 +49,6 @@
         android:layout_marginTop="76dp"
         android:layout_alignRight="@+id/choose_city"
         android:layout_alignEnd="@+id/choose_city" />
-
-    <LinearLayout
-        android:id="@+id/weather_layout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="16dp"
-        android:paddingRight="32dp"
-        android:paddingLeft="32dp"
-        android:layout_below="@+id/shadow" >
-
-        <TextView
-            android:id="@+id/tv_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="italic"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_last_update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/shadow_2"
-        android:layout_width="match_parent"
-        android:layout_height="12dp"
-        android:layout_marginTop="16dp"
-        android:rotation="180"
-        android:orientation="horizontal"
-        android:layout_below="@id/weather_layout"
-        android:background="@drawable/background_with_shadow" />
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_below="@id/shadow_2">
-
-        <ListView
-            android:id="@+id/forecast_list_view"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </ListView>
-
-    </LinearLayout>
 
     <com.melnykov.fab.FloatingActionButton
         android:id="@+id/choose_city"

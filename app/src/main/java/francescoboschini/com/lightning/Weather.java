@@ -28,72 +28,36 @@ public class Weather {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
-
     public long getLastUpdate() {
         return lastUpdate;
-    }
-
-    public void setLastUpdate(long lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     public int getWeatherCode() {
         return weatherCode;
     }
 
-    public void setWeatherCode(int weatherCode) {
-        this.weatherCode = weatherCode;
-    }
-
     public long getSunrise() {
         return sunrise;
     }
 
-    public void setSunrise(long sunrise) {
-        this.sunrise = sunrise;
-    }
 
     public long getSunset() {
         return sunset;
-    }
-
-    public void setSunset(long sunset) {
-        this.sunset = sunset;
     }
 
     public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(String humidity) {
-        this.humidity = humidity;
-    }
-
     public String getDescription() {
         return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public String getCityName() {
         return cityName;
     }
-
-    public void setCityName(String cityName) {
-        this.cityName = cityName;
-    }
-
 }

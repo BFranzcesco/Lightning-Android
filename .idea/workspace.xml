@@ -33,34 +33,95 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="72" column="46" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
+              <caret line="98" column="91" selection-start-line="98" selection-start-column="91" selection-end-line="98" selection-end-column="91" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4176#4177#0" expanded="true" />
-                <element signature="e#4228#4229#0" expanded="true" />
-                <element signature="e#4288#4289#0" expanded="true" />
-                <element signature="e#4342#4343#0" expanded="true" />
-                <element signature="e#6122#6153#0" expanded="true" />
-                <element signature="e#6404#6439#0" expanded="true" />
-                <element signature="e#6672#6700#0" expanded="true" />
-                <element signature="e#6845#6876#0" expanded="true" />
-                <element signature="e#7186#7217#0" expanded="true" />
-                <element signature="e#7557#7558#0" expanded="true" />
-                <element signature="e#7598#7599#0" expanded="true" />
-                <element signature="e#7968#7990#0" expanded="true" />
-                <element signature="e#8069#8120#0" expanded="true" />
-                <element signature="e#8668#8693#0" expanded="true" />
-                <element signature="e#8731#8760#0" expanded="true" />
+                <element signature="e#4498#4499#0" expanded="true" />
+                <element signature="e#4552#4553#0" expanded="true" />
+                <element signature="e#4606#4607#0" expanded="true" />
+                <element signature="e#4654#4655#0" expanded="true" />
+                <element signature="e#4776#4790#0" expanded="true" />
+                <element signature="e#5698#5729#0" expanded="true" />
+                <element signature="e#6718#6749#0" expanded="true" />
+                <element signature="e#7000#7035#0" expanded="true" />
+                <element signature="e#7268#7296#0" expanded="true" />
+                <element signature="e#7441#7472#0" expanded="true" />
+                <element signature="e#7775#7806#0" expanded="true" />
+                <element signature="e#8152#8153#0" expanded="true" />
+                <element signature="e#8193#8194#0" expanded="true" />
+                <element signature="e#8563#8585#0" expanded="true" />
+                <element signature="e#8664#8715#0" expanded="true" />
+                <element signature="e#9274#9299#0" expanded="true" />
+                <element signature="e#9337#9366#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UpdateWeatherInterface.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="WeatherIconHandler.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherIconHandler.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+              <folding>
+                <element signature="e#495#496#0" expanded="true" />
+                <element signature="e#533#534#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="UpdateWeatherInterface.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeatherInterface.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.27303755">
-              <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="activity_wheather.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-15.821428">
+              <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="colors.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="7" column="27" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="current_weather_infos_layout.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/current_weather_infos_layout.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.285714">
+              <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="background_with_shadow.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.19112629">
+              <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -70,17 +131,17 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherUpdater.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#817#818#0" expanded="true" />
-                <element signature="e#911#912#0" expanded="true" />
-                <element signature="e#1054#1055#0" expanded="true" />
-                <element signature="e#1161#1162#0" expanded="true" />
-                <element signature="e#1596#1597#0" expanded="true" />
-                <element signature="e#1690#1691#0" expanded="true" />
-                <element signature="e#1833#1834#0" expanded="true" />
-                <element signature="e#1941#1942#0" expanded="true" />
+                <element signature="e#819#820#0" expanded="true" />
+                <element signature="e#913#914#0" expanded="true" />
+                <element signature="e#1056#1057#0" expanded="true" />
+                <element signature="e#1163#1164#0" expanded="true" />
+                <element signature="e#1592#1593#0" expanded="true" />
+                <element signature="e#1686#1687#0" expanded="true" />
+                <element signature="e#1829#1830#0" expanded="true" />
+                <element signature="e#1937#1938#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -90,21 +151,11 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastListAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="45" column="136" selection-start-line="45" selection-start-column="136" selection-end-line="45" selection-end-column="136" />
+              <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1756#1819#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Utils.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Utils.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="14" column="45" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="45" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -114,10 +165,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile_vertical" />
         <option value="valueResourceFile" />
         <option value="Interface" />
         <option value="Class" />
+        <option value="layoutResourceFile_vertical" />
       </list>
     </option>
   </component>
@@ -2015,22 +2066,24 @@
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Application.java" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/RemoteFetch.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Weather.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Forecast.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Utils.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/forecast_item_raw.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/forecast_item_raw.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastItem.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherIconHandler.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateCityWeather.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeather.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeatherInterface.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherUpdater.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Weather.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherIconHandler.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/current_weather_infos_layout.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml" />
       </list>
     </option>
   </component>
@@ -2613,7 +2666,8 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3268945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.3268945" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32912332" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -2634,7 +2688,6 @@
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32961783" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -2651,7 +2704,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="13" />
+      <option name="time" value="20" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -2660,22 +2713,13 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastListAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="136" selection-start-line="45" selection-start-column="136" selection-end-line="45" selection-end-column="136" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1756#1819#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Utils.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="14" column="45" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="45" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -2701,21 +2745,23 @@
           <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4176#4177#0" expanded="true" />
-            <element signature="e#4228#4229#0" expanded="true" />
-            <element signature="e#4288#4289#0" expanded="true" />
-            <element signature="e#4342#4343#0" expanded="true" />
-            <element signature="e#6122#6153#0" expanded="true" />
-            <element signature="e#6404#6439#0" expanded="true" />
-            <element signature="e#6672#6700#0" expanded="true" />
-            <element signature="e#6845#6876#0" expanded="true" />
-            <element signature="e#7186#7217#0" expanded="true" />
-            <element signature="e#7557#7558#0" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7968#7990#0" expanded="true" />
-            <element signature="e#8069#8120#0" expanded="true" />
-            <element signature="e#8668#8693#0" expanded="true" />
-            <element signature="e#8731#8760#0" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4606#4607#0" expanded="true" />
+            <element signature="e#4654#4655#0" expanded="true" />
+            <element signature="e#4776#4790#0" expanded="true" />
+            <element signature="e#5698#5729#0" expanded="true" />
+            <element signature="e#6718#6749#0" expanded="true" />
+            <element signature="e#7000#7035#0" expanded="true" />
+            <element signature="e#7268#7296#0" expanded="true" />
+            <element signature="e#7441#7472#0" expanded="true" />
+            <element signature="e#7775#7806#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8193#8194#0" expanded="true" />
+            <element signature="e#8563#8585#0" expanded="true" />
+            <element signature="e#8664#8715#0" expanded="true" />
+            <element signature="e#9274#9299#0" expanded="true" />
+            <element signature="e#9337#9366#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2756,21 +2802,23 @@
           <caret line="35" column="21" selection-start-line="35" selection-start-column="21" selection-end-line="35" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4176#4177#0" expanded="true" />
-            <element signature="e#4228#4229#0" expanded="true" />
-            <element signature="e#4288#4289#0" expanded="true" />
-            <element signature="e#4342#4343#0" expanded="true" />
-            <element signature="e#6122#6153#0" expanded="true" />
-            <element signature="e#6404#6439#0" expanded="true" />
-            <element signature="e#6672#6700#0" expanded="true" />
-            <element signature="e#6845#6876#0" expanded="true" />
-            <element signature="e#7186#7217#0" expanded="true" />
-            <element signature="e#7557#7558#0" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7968#7990#0" expanded="true" />
-            <element signature="e#8069#8120#0" expanded="true" />
-            <element signature="e#8668#8693#0" expanded="true" />
-            <element signature="e#8731#8760#0" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4606#4607#0" expanded="true" />
+            <element signature="e#4654#4655#0" expanded="true" />
+            <element signature="e#4776#4790#0" expanded="true" />
+            <element signature="e#5698#5729#0" expanded="true" />
+            <element signature="e#6718#6749#0" expanded="true" />
+            <element signature="e#7000#7035#0" expanded="true" />
+            <element signature="e#7268#7296#0" expanded="true" />
+            <element signature="e#7441#7472#0" expanded="true" />
+            <element signature="e#7775#7806#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8193#8194#0" expanded="true" />
+            <element signature="e#8563#8585#0" expanded="true" />
+            <element signature="e#8664#8715#0" expanded="true" />
+            <element signature="e#9274#9299#0" expanded="true" />
+            <element signature="e#9337#9366#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2799,21 +2847,23 @@
           <caret line="8" column="45" selection-start-line="8" selection-start-column="45" selection-end-line="8" selection-end-column="45" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4176#4177#0" expanded="true" />
-            <element signature="e#4228#4229#0" expanded="true" />
-            <element signature="e#4288#4289#0" expanded="true" />
-            <element signature="e#4342#4343#0" expanded="true" />
-            <element signature="e#6122#6153#0" expanded="true" />
-            <element signature="e#6404#6439#0" expanded="true" />
-            <element signature="e#6672#6700#0" expanded="true" />
-            <element signature="e#6845#6876#0" expanded="true" />
-            <element signature="e#7186#7217#0" expanded="true" />
-            <element signature="e#7557#7558#0" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7968#7990#0" expanded="true" />
-            <element signature="e#8069#8120#0" expanded="true" />
-            <element signature="e#8668#8693#0" expanded="true" />
-            <element signature="e#8731#8760#0" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4606#4607#0" expanded="true" />
+            <element signature="e#4654#4655#0" expanded="true" />
+            <element signature="e#4776#4790#0" expanded="true" />
+            <element signature="e#5698#5729#0" expanded="true" />
+            <element signature="e#6718#6749#0" expanded="true" />
+            <element signature="e#7000#7035#0" expanded="true" />
+            <element signature="e#7268#7296#0" expanded="true" />
+            <element signature="e#7441#7472#0" expanded="true" />
+            <element signature="e#7775#7806#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8193#8194#0" expanded="true" />
+            <element signature="e#8563#8585#0" expanded="true" />
+            <element signature="e#8664#8715#0" expanded="true" />
+            <element signature="e#9274#9299#0" expanded="true" />
+            <element signature="e#9337#9366#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -3003,13 +3053,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24521072">
-          <caret line="8" column="43" selection-start-line="8" selection-start-column="43" selection-end-line="8" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/forecast_item_raw.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3029,17 +3072,6 @@
         <state vertical-scroll-proportion="0.4450331">
           <caret line="16" column="36" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Weather.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.12260536">
-          <caret line="5" column="28" selection-start-line="5" selection-start-column="28" selection-end-line="5" selection-end-column="28" />
-          <folding>
-            <element signature="e#860#861#0" expanded="false" />
-            <element signature="e#894#895#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -3065,17 +3097,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="106" column="30" selection-start-line="106" selection-start-column="30" selection-end-line="106" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml">
       <provider editor-type-id="android-designer">
         <state />
@@ -3083,14 +3104,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="92" column="44" selection-start-line="92" selection-start-column="44" selection-end-line="92" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Utils.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="14" column="45" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="45" />
           <folding />
         </state>
       </provider>
@@ -3103,14 +3116,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherIconHandler.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.48122868">
-          <caret line="69" column="23" selection-start-line="69" selection-start-column="23" selection-end-line="69" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/build.gradle">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.3783784">
@@ -3119,18 +3124,57 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherUpdater.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.08108108">
-          <caret line="3" column="35" selection-start-line="3" selection-start-column="17" selection-end-line="3" selection-end-column="35" />
-          <folding />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="32" selection-end-line="18" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#819#820#0" expanded="true" />
+            <element signature="e#913#914#0" expanded="true" />
+            <element signature="e#1056#1057#0" expanded="true" />
+            <element signature="e#1163#1164#0" expanded="true" />
+            <element signature="e#1592#1593#0" expanded="true" />
+            <element signature="e#1686#1687#0" expanded="true" />
+            <element signature="e#1829#1830#0" expanded="true" />
+            <element signature="e#1937#1938#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Utils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4095563">
+          <caret line="15" column="33" selection-start-line="15" selection-start-column="33" selection-end-line="15" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/Weather.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.18088737">
+          <caret line="11" column="25" selection-start-line="11" selection-start-column="25" selection-end-line="11" selection-end-column="25" />
+          <folding>
+            <element signature="e#860#861#0" expanded="true" />
+            <element signature="e#894#895#0" expanded="true" />
+            <element signature="e#997#998#0" expanded="true" />
+            <element signature="e#1031#1032#0" expanded="true" />
+            <element signature="e#1125#1126#0" expanded="true" />
+            <element signature="e#1154#1155#0" expanded="true" />
+            <element signature="e#1258#1259#0" expanded="true" />
+            <element signature="e#1292#1293#0" expanded="true" />
+            <element signature="e#1391#1392#0" expanded="true" />
+            <element signature="e#1422#1423#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastListAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="136" selection-start-line="45" selection-start-column="136" selection-end-line="45" selection-end-column="136" />
+          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#1756#1819#0" expanded="true" />
@@ -3138,53 +3182,86 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeatherInterface.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="22" selection-start-line="9" selection-start-column="22" selection-end-line="9" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherIconHandler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="29" column="52" selection-start-line="29" selection-start-column="52" selection-end-line="29" selection-end-column="52" />
+          <folding>
+            <element signature="e#495#496#0" expanded="true" />
+            <element signature="e#533#534#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="72" column="46" selection-start-line="72" selection-start-column="46" selection-end-line="72" selection-end-column="46" />
+          <caret line="98" column="91" selection-start-line="98" selection-start-column="91" selection-end-line="98" selection-end-column="91" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#4176#4177#0" expanded="true" />
-            <element signature="e#4228#4229#0" expanded="true" />
-            <element signature="e#4288#4289#0" expanded="true" />
-            <element signature="e#4342#4343#0" expanded="true" />
-            <element signature="e#6122#6153#0" expanded="true" />
-            <element signature="e#6404#6439#0" expanded="true" />
-            <element signature="e#6672#6700#0" expanded="true" />
-            <element signature="e#6845#6876#0" expanded="true" />
-            <element signature="e#7186#7217#0" expanded="true" />
-            <element signature="e#7557#7558#0" expanded="true" />
-            <element signature="e#7598#7599#0" expanded="true" />
-            <element signature="e#7968#7990#0" expanded="true" />
-            <element signature="e#8069#8120#0" expanded="true" />
-            <element signature="e#8668#8693#0" expanded="true" />
-            <element signature="e#8731#8760#0" expanded="true" />
+            <element signature="e#4498#4499#0" expanded="true" />
+            <element signature="e#4552#4553#0" expanded="true" />
+            <element signature="e#4606#4607#0" expanded="true" />
+            <element signature="e#4654#4655#0" expanded="true" />
+            <element signature="e#4776#4790#0" expanded="true" />
+            <element signature="e#5698#5729#0" expanded="true" />
+            <element signature="e#6718#6749#0" expanded="true" />
+            <element signature="e#7000#7035#0" expanded="true" />
+            <element signature="e#7268#7296#0" expanded="true" />
+            <element signature="e#7441#7472#0" expanded="true" />
+            <element signature="e#7775#7806#0" expanded="true" />
+            <element signature="e#8152#8153#0" expanded="true" />
+            <element signature="e#8193#8194#0" expanded="true" />
+            <element signature="e#8563#8585#0" expanded="true" />
+            <element signature="e#8664#8715#0" expanded="true" />
+            <element signature="e#9274#9299#0" expanded="true" />
+            <element signature="e#9337#9366#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/WeatherUpdater.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.821428">
+          <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/current_weather_infos_layout.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.285714">
+          <caret line="6" column="33" selection-start-line="6" selection-start-column="33" selection-end-line="6" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#817#818#0" expanded="true" />
-            <element signature="e#911#912#0" expanded="true" />
-            <element signature="e#1054#1055#0" expanded="true" />
-            <element signature="e#1161#1162#0" expanded="true" />
-            <element signature="e#1596#1597#0" expanded="true" />
-            <element signature="e#1690#1691#0" expanded="true" />
-            <element signature="e#1833#1834#0" expanded="true" />
-            <element signature="e#1941#1942#0" expanded="true" />
-          </folding>
+          <caret line="7" column="27" selection-start-line="7" selection-start-column="17" selection-end-line="7" selection-end-column="27" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeatherInterface.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.27303755">
-          <caret line="10" column="1" selection-start-line="10" selection-start-column="1" selection-end-line="10" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.19112629">
+          <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
           <folding />
         </state>
       </provider>

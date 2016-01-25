@@ -35,7 +35,7 @@
         android:layout_toRightOf="@+id/shadow"
         android:layout_toEndOf="@+id/shadow"
         android:layout_alignParentTop="true"
-        android:id="@+id/weather_layout">
+        android:id="@+id/current_weather_infos_layout">
 
         <TextView
             android:id="@+id/tv_place"
@@ -73,9 +73,9 @@
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/weather_layout"
-        android:layout_alignLeft="@id/weather_layout"
-        android:layout_alignRight="@id/weather_layout">
+        android:layout_below="@id/current_weather_infos_layout"
+        android:layout_alignLeft="@id/current_weather_infos_layout"
+        android:layout_alignRight="@id/current_weather_infos_layout">
 
         <ListView
             android:id="@+id/forecast_list_view"
