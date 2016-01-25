@@ -104,6 +104,19 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="activity_wheather.xml" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml">
+          <provider selected="true" editor-type-id="android-designer">
+            <state />
+          </provider>
+          <provider editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="current_weather_infos_layout.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/current_weather_infos_layout.xml">
           <provider editor-type-id="android-designer">
@@ -117,10 +130,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="background_with_shadow.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="background_with_shadow.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.19112629">
+            <state vertical-scroll-proportion="0.0">
               <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
               <folding />
             </state>
@@ -2072,7 +2085,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/forecast_item_raw.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastItem.java" />
         <option value="$PROJECT_DIR$/app/build.gradle" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/ForecastListAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateCityWeather.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/francescoboschini/com/lightning/UpdateWeather.java" />
@@ -2084,6 +2096,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/current_weather_infos_layout.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_wheather.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml" />
       </list>
     </option>
   </component>
@@ -3097,17 +3110,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml">
-      <provider editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="92" column="44" selection-start-line="92" selection-start-column="44" selection-end-line="92" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$USER_HOME$/Library/Android/sdk/sources/android-23/android/view/View.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -3260,8 +3262,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/background_with_shadow.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.19112629">
+        <state vertical-scroll-proportion="0.0">
           <caret line="7" column="38" selection-start-line="7" selection-start-column="38" selection-end-line="7" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout-land/activity_wheather.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
           <folding />
         </state>
       </provider>

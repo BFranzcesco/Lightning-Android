@@ -29,53 +29,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:paddingRight="32dp"
-        android:paddingLeft="32dp"
-        android:paddingTop="16dp"
-        android:layout_toRightOf="@+id/shadow"
-        android:layout_toEndOf="@+id/shadow"
-        android:layout_alignParentTop="true"
-        android:id="@+id/current_weather_infos_layout">
-
-        <TextView
-            android:id="@+id/tv_place"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="italic"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textStyle="bold"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_humidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tv_last_update"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textSize="16sp" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_marginTop="16dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@id/current_weather_infos_layout"
-        android:layout_alignLeft="@id/current_weather_infos_layout"
-        android:layout_alignRight="@id/current_weather_infos_layout">
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/tv_temperature"
+        android:layout_toEndOf="@+id/tv_temperature">
 
         <ListView
             android:id="@+id/forecast_list_view"
