@@ -1,14 +1,11 @@
 package francescoboschini.com.lightning;
 
-import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -16,13 +13,11 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import com.crashlytics.android.Crashlytics;
 import com.melnykov.fab.FloatingActionButton;
 
 import francescoboschini.com.lightning.Utils.StringUtils;
 import francescoboschini.com.lightning.Utils.WeatherIconHandler;
 import francescoboschini.com.lightning.Utils.WeatherUtils;
-import io.fabric.sdk.android.Fabric;
 
 import org.json.JSONObject;
 
@@ -36,9 +31,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     public static final String TEMPERATURE_FORMAT = "%.1f";
     public static final int DEFAULT_WEATHER_REFRESHING_TIME = 60;
-    private Handler handler;
     private TextView tvTemperature;
-    private FloatingActionButton chooseCityButton;
     private CityRepository cityRepository;
     private ImageView weatherImage;
     private TextView tvPlace;
@@ -50,16 +43,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private List<ForecastItem> forecastList;
     private ForecastListAdapter adapter;
     private WeatherUpdater weatherUpdater;
-    private View currentWeatherInfosHeader;
     private CurrentLocation currentLocation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.coordinator_layout);
 
-        handler = new Handler();
         weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
 
         setUpUI();
@@ -67,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cityRepository = new CityRepository(this);
         currentLocation = new CurrentLocation(getApplicationContext());
 
-        forecastList = new ArrayList<ForecastItem>();
+        forecastList = new ArrayList<>();
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
         forecastListView.setAdapter(adapter);
 
@@ -92,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         weatherImage = (ImageView) findViewById(R.id.iv_weather);
 
         forecastListView = (ListView) findViewById(R.id.forecast_list_view);
-        currentWeatherInfosHeader = getLayoutInflater().inflate(R.layout.current_weather_infos_layout, forecastListView, false);
+        View currentWeatherInfosHeader = getLayoutInflater().inflate(R.layout.current_weather_infos_layout, forecastListView, false);
         tvPlace = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_place);
         tvDescription = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_description);
         tvHumidity = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_humidity);
@@ -100,7 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         forecastListView.addHeaderView(currentWeatherInfosHeader);
 
-        chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
+        FloatingActionButton chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
 
         chooseCityButton.setOnClickListener(this);
         chooseCityButton.attachToListView(forecastListView);
@@ -153,7 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 .inputType(InputType.TYPE_CLASS_TEXT)
                 .input(getResources().getString(R.string.alert_input_hint), null, new MaterialDialog.InputCallback() {
                     @Override
-                    public void onInput(MaterialDialog dialog, CharSequence input) {
+                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
                         updateWeatherAndForecast(input.toString());
                     }
                 }).show();
