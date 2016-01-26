@@ -5,8 +5,6 @@ import android.widget.ImageView;
 
 import java.util.Date;
 
-import lightning.francescoboschini.com.lightning.R;
-
 public class WeatherIconHandler {
 
     // GET MILLISEC from DATE http://www.fileformat.info/tip/java/date2millis.htm

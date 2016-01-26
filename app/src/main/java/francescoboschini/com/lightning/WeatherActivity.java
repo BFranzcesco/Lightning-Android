@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.Nullable;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -27,7 +28,6 @@ import com.melnykov.fab.FloatingActionButton;
 
 import io.fabric.sdk.android.Fabric;
 
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -37,8 +37,6 @@ import java.util.Locale;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
-
-import lightning.francescoboschini.com.lightning.R;
 
 public class WeatherActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface, LocationListener {
 
@@ -81,7 +79,15 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         forecastListView.setAdapter(adapter);
 
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 10, this);
+
+        String locationProvider = LocationManager.NETWORK_PROVIDER;
+        if (locationManager.getLastKnownLocation(locationProvider) != null)
+            cityName = convertLocationToString(locationManager.getLastKnownLocation(locationProvider));
+
+        if(cityRepository.getSavedCity().isEmpty())
+            updateWeatherAndForecast(cityName);
+        else
+            updateWeatherAndForecast(cityRepository.getSavedCity());
 
         ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
         scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
@@ -129,59 +135,6 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
 
     private void updateForecast(final String city) {
         weatherUpdater.getForecast(city);
-    }
-
-    private List<ForecastItem> convertToForecast(JSONObject json) {
-        List<ForecastItem> forecast = new ArrayList<ForecastItem>();
-
-        try {
-            JSONArray jsonList = json.getJSONArray("list");
-
-            for(int i=0; i<(jsonList.length()/2); i++) {
-                JSONObject jsonObject = jsonList.getJSONObject(i);
-                JSONObject main = jsonObject.getJSONObject("main");
-                JSONArray weatherList = jsonObject.getJSONArray("weather");
-                String description = weatherList.getJSONObject(0).getString("description");
-                int weatherId = weatherList.getJSONObject(0).getInt("id");
-
-                forecast.add(new ForecastItem (
-                        main.getDouble("temp"),
-                        description,
-                        jsonObject.getLong("dt"),
-                        weatherId));
-            }
-
-        } catch(Exception e) {
-            Log.e("Lightning", "One or more fields not found in the JSON data");
-            Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
-        }
-
-        return forecast;
-    }
-
-    private Weather convertToCurrentWeather(JSONObject json) {
-        Weather weather = null;
-        try {
-            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-            JSONObject main = json.getJSONObject("main");
-
-            weather = new Weather(
-                    main.getDouble("temp"),
-                    json.getString("name"),
-                    json.getJSONObject("sys").getString("country"),
-                    details.getString("description"),
-                    main.getString("humidity"),
-                    json.getLong("dt"),
-                    details.getInt("id"),
-                    json.getJSONObject("sys").getLong("sunrise"),
-                    json.getJSONObject("sys").getLong("sunset"));
-
-        } catch(Exception e) {
-            Log.e("Lightning", "One or more fields not found in the JSON data");
-            Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
-        }
-
-        return weather;
     }
 
     private void renderWeather(Weather weather) {
@@ -233,7 +186,7 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onWeatherSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
-        renderWeather(convertToCurrentWeather(json));
+        renderWeather(WeatherUtils.convertToCurrentWeather(json));
     }
 
     @Override
@@ -244,11 +197,17 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onForecastSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
-        populateForecastList(convertToForecast(json));
+        populateForecastList(WeatherUtils.convertToForecast(json));
     }
 
     @Override
     public void onLocationChanged(Location location) {
+        updateWeatherAndForecast(convertLocationToString(location));
+    }
+
+    @Nullable
+    private String convertLocationToString(Location location) {
+        String cityName = null;
         Geocoder gcd = new Geocoder(getApplicationContext(), Locale.getDefault());
         List<Address> addresses = null;
         try {
@@ -260,22 +219,17 @@ public class WeatherActivity extends AppCompatActivity implements View.OnClickLi
         if (addresses.size() > 0) {
             System.out.println("LOCATION " + addresses.get(0).getLocality());
             cityName = addresses.get(0).getLocality();
-            updateWeatherAndForecast(cityName);
         }
+
+        return cityName;
     }
 
     @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
+    public void onStatusChanged(String provider, int status, Bundle extras) {}
 
     @Override
-    public void onProviderEnabled(String provider) {
-
-    }
+    public void onProviderEnabled(String provider) {}
 
     @Override
-    public void onProviderDisabled(String provider) {
-
-    }
+    public void onProviderDisabled(String provider) {}
 }

@@ -10,8 +10,6 @@ import android.widget.TextView;
 
 import java.util.List;
 
-import lightning.francescoboschini.com.lightning.R;
-
 public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
 
     public ForecastListAdapter(Context context, int textViewResourceId, List<ForecastItem> objects) {

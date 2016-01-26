@@ -10,8 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-import lightning.francescoboschini.com.lightning.R;
-
 public class RemoteFetch {
 
     private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
