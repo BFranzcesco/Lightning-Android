@@ -14,7 +14,7 @@ public class CityRepository {
     }
 
     public String getSavedCity() {
-        return sharedPreferences.getString("city", City.DEFAULT_CITY_NAME);
+        return sharedPreferences.getString("city", "");
     }
 
     public void saveCity(String cityName) {
