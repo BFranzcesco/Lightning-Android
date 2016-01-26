@@ -20,4 +20,8 @@ public class CityRepository {
     public void saveCity(String cityName) {
         sharedPreferences.edit().putString("city", cityName).commit();
     }
+
+    public boolean isEmpty() {
+        return getSavedCity() == "" || getSavedCity() == null;
+    }
 }

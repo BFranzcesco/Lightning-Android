@@ -9,7 +9,7 @@
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
     android:background="@color/white"
-    tools:context="francescoboschini.com.lightning.WeatherActivity">
+    tools:context=".MainActivity">
 
     <ImageView
         android:id="@+id/weather_icon"

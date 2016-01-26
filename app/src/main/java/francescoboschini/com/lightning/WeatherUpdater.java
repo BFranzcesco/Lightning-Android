@@ -19,7 +19,7 @@ public class WeatherUpdater {
         handler = new Handler();
         new Thread(){
             public void run(){
-                final JSONObject json = RemoteFetch.getWeather(context, city);
+                final JSONObject json = GetRemoteData.getWeather(context, city);
                 if(json == null) {
                     handler.post(new Runnable() {
                         public void run() {
@@ -41,7 +41,7 @@ public class WeatherUpdater {
         handler = new Handler();
         new Thread() {
             public void run() {
-                final JSONObject json = RemoteFetch.getForecast(context, city);
+                final JSONObject json = GetRemoteData.getForecast(context, city);
                 if (json == null) {
                     handler.post(new Runnable() {
                         public void run() {

@@ -1,9 +1,11 @@
-package francescoboschini.com.lightning;
+package francescoboschini.com.lightning.Utils;
 
 import android.content.Context;
 import android.widget.ImageView;
 
 import java.util.Date;
+
+import francescoboschini.com.lightning.R;
 
 public class WeatherIconHandler {
 

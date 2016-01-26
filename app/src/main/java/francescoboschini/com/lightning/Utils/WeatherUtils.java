@@ -1,4 +1,4 @@
-package francescoboschini.com.lightning;
+package francescoboschini.com.lightning.Utils;
 
 import android.support.design.widget.Snackbar;
 import android.util.Log;
@@ -9,7 +9,34 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import francescoboschini.com.lightning.ForecastItem;
+import francescoboschini.com.lightning.Weather;
+
 public class WeatherUtils {
+
+    public static Weather convertToCurrentWeather(JSONObject json) {
+        Weather weather = null;
+        try {
+            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
+            JSONObject main = json.getJSONObject("main");
+
+            weather = new Weather(
+                    main.getDouble("temp"),
+                    json.getString("name"),
+                    json.getJSONObject("sys").getString("country"),
+                    details.getString("description"),
+                    main.getString("humidity"),
+                    json.getLong("dt"),
+                    details.getInt("id"),
+                    json.getJSONObject("sys").getLong("sunrise"),
+                    json.getJSONObject("sys").getLong("sunset"));
+
+        } catch(Exception e) {
+            Log.e("Lightning", "One or more fields not found in the JSON data");
+        }
+
+        return weather;
+    }
 
     public static List<ForecastItem> convertToForecast(JSONObject json) {
         List<ForecastItem> forecast = new ArrayList<ForecastItem>();
@@ -36,29 +63,5 @@ public class WeatherUtils {
         }
 
         return forecast;
-    }
-
-    public static Weather convertToCurrentWeather(JSONObject json) {
-        Weather weather = null;
-        try {
-            JSONObject details = json.getJSONArray("weather").getJSONObject(0);
-            JSONObject main = json.getJSONObject("main");
-
-            weather = new Weather(
-                    main.getDouble("temp"),
-                    json.getString("name"),
-                    json.getJSONObject("sys").getString("country"),
-                    details.getString("description"),
-                    main.getString("humidity"),
-                    json.getLong("dt"),
-                    details.getInt("id"),
-                    json.getJSONObject("sys").getLong("sunrise"),
-                    json.getJSONObject("sys").getLong("sunset"));
-
-        } catch(Exception e) {
-            Log.e("Lightning", "One or more fields not found in the JSON data");
-        }
-
-        return weather;
     }
 }

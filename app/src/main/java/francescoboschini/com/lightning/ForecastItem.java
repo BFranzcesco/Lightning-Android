@@ -18,31 +18,16 @@ public class ForecastItem {
         return temperature;
     }
 
-    public void setTemperature(double temperature) {
-        this.temperature = temperature;
-    }
-
     public long getDate() {
         return lastUpdate;
-    }
-
-    public void setLastUpdate(long lastUpdate) {
-        this.lastUpdate = lastUpdate;
     }
 
     public int getWeatherCode() {
         return weatherCode;
     }
 
-    public void setWeatherCode(int weatherCode) {
-        this.weatherCode = weatherCode;
-    }
-
     public String getDescription() {
         return description;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
 }

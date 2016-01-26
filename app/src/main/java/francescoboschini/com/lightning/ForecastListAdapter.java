@@ -10,6 +10,9 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import francescoboschini.com.lightning.Utils.StringUtils;
+import francescoboschini.com.lightning.Utils.WeatherIconHandler;
+
 public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
 
     public ForecastListAdapter(Context context, int textViewResourceId, List<ForecastItem> objects) {
@@ -18,11 +21,7 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        return getViewOptimize(position, convertView, parent);
-    }
-
-    public View getViewOptimize(int position, View convertView, final ViewGroup parent) {
-        ViewHolder viewHolder = null;
+        ViewHolder viewHolder;
         if (convertView == null) {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -42,8 +41,8 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
 
         ForecastItem forecastItem = getItem(position);
         viewHolder.temperature.setText(forecastItem.getTemperature() + getContext().getResources().getString(R.string.celsius_degrees));
-        viewHolder.description.setText(Utils.toFirstCharUpperCase(forecastItem.getDescription()));
-        viewHolder.date.setText(Utils.simpleFormatLongDate(forecastItem.getDate()));
+        viewHolder.description.setText(StringUtils.toFirstCharUpperCase(forecastItem.getDescription()));
+        viewHolder.date.setText(StringUtils.simpleFormatLongDate(forecastItem.getDate()));
         new WeatherIconHandler(getContext()).setIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode());
 
         return convertView;

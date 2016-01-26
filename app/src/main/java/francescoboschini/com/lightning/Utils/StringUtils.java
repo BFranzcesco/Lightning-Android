@@ -1,11 +1,11 @@
-package francescoboschini.com.lightning;
+package francescoboschini.com.lightning.Utils;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-public class Utils {
+public class StringUtils {
 
     public static final String DATE_FORMAT = "EEE dd MMM yyyy, HH:mm";
     public static final String SIMPLE_DATE_FORMAT = "EEE dd MMM, HH:mm";
