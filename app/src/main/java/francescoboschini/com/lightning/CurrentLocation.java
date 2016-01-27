@@ -22,22 +22,26 @@ public class CurrentLocation extends Service implements LocationListener {
     boolean canGetLocation = false;
 
     Location location = new Location("Milano");
+    CurrentLocationInterface currentLocationInterface;
     double latitude;
     double longitude;
 
-    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 1000; // 1 km
+    private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2000; // 1 km
     private static final long MIN_LOCATION_UPDATE_REFRESHING_TIME = 1000 * 60 * 60 * 6; // 6 hours
 
     protected LocationManager locationManager;
 
-    public CurrentLocation(Context context) {
+    public CurrentLocation(Context context, CurrentLocationInterface currentLocationInterface) {
         this.context = context;
+        this.currentLocationInterface = currentLocationInterface;
     }
 
-    public Location getLocation() {
+    public void getLocation() {
         try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             if (!isGPSEnabled() && !isNetworkEnabled()) {
+                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+                currentLocationInterface.onProviderDisable();
             } else {
                 this.canGetLocation = true;
                 if (isNetworkEnabled()) {
@@ -67,11 +71,11 @@ public class CurrentLocation extends Service implements LocationListener {
                 }
             }
 
+            currentLocationInterface.onLocationGot(location);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return location;
     }
 
     private boolean isGPSEnabled() {
@@ -82,11 +86,7 @@ public class CurrentLocation extends Service implements LocationListener {
         return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
     }
 
-    public String getCityNameBasedOnLocation() {
-        return convertLocationToFullCityName(getLocation());
-    }
-
-    private String convertLocationToFullCityName(Location location) {
+    public String convertLocationToFullCityName(Location location) {
         String cityName = null;
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
@@ -108,6 +108,7 @@ public class CurrentLocation extends Service implements LocationListener {
 
     @Override
     public void onProviderEnabled(String provider) {
+        currentLocationInterface.onProvidersEnabled();
     }
 
     @Override

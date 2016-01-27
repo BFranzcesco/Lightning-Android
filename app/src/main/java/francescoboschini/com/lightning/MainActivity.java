@@ -1,5 +1,6 @@
 package francescoboschini.com.lightning;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -24,7 +25,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface, CurrentLocationInterface{
 
     public static final String TEMPERATURE_FORMAT = "%.1f";
     private TextView tvTemperature;
@@ -40,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ForecastListAdapter adapter;
     private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
+    private Location location;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setUpUI();
 
         cityRepository = new CityRepository(this);
-        currentLocation = new CurrentLocation(getApplicationContext());
+        currentLocation = new CurrentLocation(getApplicationContext(), this);
 
         forecastList = new ArrayList<>();
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 weatherImage.setClickable(false);
-                updateWeatherAndForecast(currentLocation.getCityNameBasedOnLocation());
+                updateWeatherAndForecast(currentLocation.convertLocationToFullCityName(location));
             }
         });
     }
@@ -142,7 +144,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        updateCurrentWeather(currentLocation.getCityNameBasedOnLocation());
+        currentLocation.getLocation();
     }
 
     @Override
@@ -168,5 +170,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         cityRepository.saveCity(city);
         populateForecastList(WeatherUtils.convertToForecast(json));
         weatherImage.setClickable(true);
+    }
+
+    @Override
+    public void onLocationGot(Location location) {
+        this.location = location;
+        updateCurrentWeather(currentLocation.convertLocationToFullCityName(location));
+    }
+
+
+    @Override
+    public void onProviderDisable() {
+        new MaterialDialog.Builder(this)
+                .title("No providers found")
+                .titleColorRes(R.color.light_blue)
+                .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
+                .backgroundColorRes(R.color.white)
+                .widgetColor(getResources().getColor(R.color.light_blue))
+                .content("I'm unable to find your location. Enable GPS or insert your location manually.")
+                .positiveText("OK")
+                .show();
+    }
+
+    @Override
+    public void onProvidersEnabled() {
+        currentLocation.getLocation();
     }
 }

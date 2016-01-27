@@ -13,15 +13,7 @@ public class CityRepository {
         sharedPreferences = activity.getPreferences(Activity.MODE_PRIVATE);
     }
 
-    public String getSavedCity() {
-        return sharedPreferences.getString("city", "");
-    }
-
     public void saveCity(String cityName) {
         sharedPreferences.edit().putString("city", cityName).commit();
-    }
-
-    public boolean isEmpty() {
-        return getSavedCity() == "" || getSavedCity() == null;
     }
 }
