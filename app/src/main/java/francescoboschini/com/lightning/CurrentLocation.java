@@ -21,7 +21,7 @@ public class CurrentLocation extends Service implements LocationListener {
 
     boolean canGetLocation = false;
 
-    android.location.Location location;
+    Location location = new Location("Milano");
     double latitude;
     double longitude;
 
