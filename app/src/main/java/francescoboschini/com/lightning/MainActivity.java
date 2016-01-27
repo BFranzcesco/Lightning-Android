@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        updateWeatherAndForecast(cityRepository.isEmpty() ? currentLocation.getCityNameBasedOnLocation() : cityRepository.getSavedCity());
+        updateCurrentWeather(cityRepository.isEmpty() ? currentLocation.getCityNameBasedOnLocation() : cityRepository.getSavedCity());
     }
 
     @Override
@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onWeatherSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
         renderWeather(WeatherUtils.convertToCurrentWeather(json));
+        updateForecast(city);
     }
 
     @Override
