@@ -23,14 +23,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface{
 
     public static final String TEMPERATURE_FORMAT = "%.1f";
-    public static final int DEFAULT_WEATHER_REFRESHING_TIME = 60;
     private TextView tvTemperature;
     private CityRepository cityRepository;
     private ImageView weatherImage;
@@ -61,18 +57,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
         forecastListView.setAdapter(adapter);
 
-        ScheduledExecutorService scheduleTaskExecutor = Executors.newScheduledThreadPool(5);
-        scheduleTaskExecutor.scheduleAtFixedRate(new Runnable() {
-            public void run() {
-                updateWeatherAndForecast(cityRepository.getSavedCity());
-            }
-        }, 0, DEFAULT_WEATHER_REFRESHING_TIME, TimeUnit.MINUTES);
-
         weatherImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 weatherImage.setClickable(false);
-                updateWeatherAndForecast(cityRepository.getSavedCity());
+                updateWeatherAndForecast(currentLocation.getCityNameBasedOnLocation());
             }
         });
     }
@@ -153,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onStart() {
         super.onStart();
-        updateCurrentWeather(cityRepository.isEmpty() ? currentLocation.getCityNameBasedOnLocation() : cityRepository.getSavedCity());
+        updateCurrentWeather(currentLocation.getCityNameBasedOnLocation());
     }
 
     @Override
