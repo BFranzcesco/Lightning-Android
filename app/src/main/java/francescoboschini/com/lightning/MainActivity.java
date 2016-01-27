@@ -71,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         weatherImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                weatherImage.setClickable(false);
                 updateWeatherAndForecast(cityRepository.getSavedCity());
             }
         });
@@ -170,11 +171,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onFailure(String city) {
         Snackbar.make(coordinatorLayout, getString(R.string.place) + StringUtils.toFirstCharUpperCase(city) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
+        weatherImage.setClickable(true);
     }
 
     @Override
     public void onForecastSuccess(String city, JSONObject json) {
         cityRepository.saveCity(city);
         populateForecastList(WeatherUtils.convertToForecast(json));
+        weatherImage.setClickable(true);
     }
 }
