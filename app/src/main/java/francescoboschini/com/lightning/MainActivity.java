@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView weatherImage;
     private TextView tvPlace;
     private TextView tvDescription;
-    private TextView tvHumidity;
     private TextView tvLastUpdate;
     private CoordinatorLayout coordinatorLayout;
     private ListView forecastListView;
@@ -81,7 +80,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         View currentWeatherInfosHeader = getLayoutInflater().inflate(R.layout.current_weather_infos_layout, forecastListView, false);
         tvPlace = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_place);
         tvDescription = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_description);
-        tvHumidity = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_humidity);
         tvLastUpdate = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_last_update);
 
         forecastListView.addHeaderView(currentWeatherInfosHeader);
@@ -110,7 +108,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             tvTemperature.setText(String.format(TEMPERATURE_FORMAT, weather.getTemperature()) + getString(R.string.celsius_degrees));
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
-            tvHumidity.setText(getString(R.string.humidity) + weather.getHumidity() + "%");
 
             String updatedOn = StringUtils.formatLongDate(weather.getLastUpdate());
             tvLastUpdate.setText(getString(R.string.last_update) + updatedOn);

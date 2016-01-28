@@ -7,7 +7,7 @@ import java.util.Locale;
 
 public class StringUtils {
 
-    public static final String DATE_FORMAT = "EEE dd MMM yyyy, HH:mm";
+    public static final String DATE_FORMAT = "dd MMM yyyy, HH:mm";
     public static final String SIMPLE_DATE_FORMAT = "EEE dd MMM, HH:mm";
     private static final DateFormat lastUpdateFormat = new SimpleDateFormat(DATE_FORMAT);
     private static final DateFormat lastUpdateSimpleFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
