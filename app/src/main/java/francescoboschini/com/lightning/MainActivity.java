@@ -1,7 +1,10 @@
 package francescoboschini.com.lightning;
 
+import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
 import com.melnykov.fab.FloatingActionButton;
@@ -182,14 +186,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onProviderDisable() {
         new MaterialDialog.Builder(this)
-                .title("No providers found")
-                .titleColorRes(R.color.light_blue)
-                .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
-                .backgroundColorRes(R.color.white)
-                .widgetColor(getResources().getColor(R.color.light_blue))
-                .content("I'm unable to find your location. Enable GPS or insert your location manually.")
-                .positiveText("OK")
-                .show();
+            .title("No providers found")
+            .titleColorRes(R.color.light_blue)
+            .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
+            .backgroundColorRes(R.color.white)
+            .widgetColor(getResources().getColor(R.color.light_blue))
+            .content("I'm unable to find your location. Go to Settings end enable location services or insert location manually")
+            .positiveText("GO TO SETTING")
+            .onPositive(new MaterialDialog.SingleButtonCallback() {
+                @Override
+                public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                            startActivity(viewIntent);
+                }
+            })
+            .show();
     }
 
     @Override
