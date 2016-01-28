@@ -21,7 +21,6 @@ public class CurrentLocation extends Service implements LocationListener {
 
     boolean canGetLocation = false;
 
-    Location location = new Location("Milano");
     CurrentLocationInterface currentLocationInterface;
     double latitude;
     double longitude;
@@ -40,9 +39,9 @@ public class CurrentLocation extends Service implements LocationListener {
         try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             if (!isGPSEnabled() && !isNetworkEnabled()) {
-                location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
-                currentLocationInterface.onProviderDisable();
+                currentLocationInterface.onProviderDisabled();
             } else {
+                Location location = null;
                 this.canGetLocation = true;
                 if (isNetworkEnabled()) {
                     locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
@@ -56,10 +55,7 @@ public class CurrentLocation extends Service implements LocationListener {
                 }
                 if (isGPSEnabled()) {
                     if (location == null) {
-                        locationManager.requestLocationUpdates(
-                                LocationManager.GPS_PROVIDER,
-                                MIN_LOCATION_UPDATE_REFRESHING_TIME,
-                                MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null) {
@@ -69,10 +65,8 @@ public class CurrentLocation extends Service implements LocationListener {
                         }
                     }
                 }
-            }
-
             currentLocationInterface.onLocationGot(location);
-
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -108,7 +102,6 @@ public class CurrentLocation extends Service implements LocationListener {
 
     @Override
     public void onProviderEnabled(String provider) {
-        currentLocationInterface.onProvidersEnabled();
     }
 
     @Override

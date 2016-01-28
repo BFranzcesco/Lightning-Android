@@ -2,6 +2,7 @@ package francescoboschini.com.lightning;
 
 
 import android.content.Context;
+import android.location.Location;
 
 import org.json.JSONObject;
 
@@ -10,16 +11,16 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
-public class GetRemoteData {
+public class RemoteData {
 
-    private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?q=%s&units=metric";
-    private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?q=%s&units=metric";
+    private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
+    private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric";
 
-    private static JSONObject getRemoteData(Context context, String city, String dataType) {
+
+    private static JSONObject getRemoteData(Context context, Location location, String dataType) {
         try {
-            URL url = new URL(String.format(dataType, city));
-            HttpURLConnection connection =
-                    (HttpURLConnection)url.openConnection();
+            URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude()));
+            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
             connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
 
@@ -43,11 +44,11 @@ public class GetRemoteData {
         }
     }
 
-    public static JSONObject getWeather(Context context, String city) {
-        return getRemoteData(context, city, WEATHER_MAP_API);
+    public static JSONObject getWeather(Context context, Location location) {
+        return getRemoteData(context, location, WEATHER_MAP_API);
     }
 
-    public static JSONObject getForecast(Context context, String city) {
-        return getRemoteData(context, city, FORECAST_MAP_API);
+    public static JSONObject getForecast(Context context, Location location) {
+        return getRemoteData(context, location, FORECAST_MAP_API);
     }
 }

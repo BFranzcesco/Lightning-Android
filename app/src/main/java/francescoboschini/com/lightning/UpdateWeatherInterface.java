@@ -1,9 +1,11 @@
 package francescoboschini.com.lightning;
 
+import android.location.Location;
+
 import org.json.JSONObject;
 
 public interface UpdateWeatherInterface {
-    void onWeatherSuccess(String city, JSONObject json);
-    void onForecastSuccess(String city, JSONObject json);
-    void onFailure(String city);
+    void onWeatherSuccess(Location location, JSONObject json);
+    void onForecastSuccess(Location location, JSONObject json);
+    void onFailure(Location location);
 }

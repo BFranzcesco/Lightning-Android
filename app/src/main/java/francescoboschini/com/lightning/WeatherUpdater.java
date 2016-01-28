@@ -1,6 +1,7 @@
 package francescoboschini.com.lightning;
 
 import android.content.Context;
+import android.location.Location;
 import android.os.Handler;
 
 import org.json.JSONObject;
@@ -15,21 +16,21 @@ public class WeatherUpdater {
         this.updateWeatherInterface = updateWeatherInterface;
     }
 
-    public void getCurrentWeather(final String city) {
+    public void getCurrentWeather(final Location location) {
         handler = new Handler();
         new Thread(){
             public void run(){
-                final JSONObject json = GetRemoteData.getWeather(context, city);
+                final JSONObject json = RemoteData.getWeather(context, location);
                 if(json == null) {
                     handler.post(new Runnable() {
                         public void run() {
-                            updateWeatherInterface.onFailure(city);
+                            updateWeatherInterface.onFailure(location);
                         }
                     });
                 } else {
                     handler.post(new Runnable() {
                         public void run() {
-                            updateWeatherInterface.onWeatherSuccess(city, json);
+                            updateWeatherInterface.onWeatherSuccess(location, json);
                         }
                     });
                 }
@@ -37,21 +38,21 @@ public class WeatherUpdater {
         }.start();
     }
 
-    public void getForecast(final String city) {
+    public void getForecast(final Location location) {
         handler = new Handler();
         new Thread() {
             public void run() {
-                final JSONObject json = GetRemoteData.getForecast(context, city);
+                final JSONObject json = RemoteData.getForecast(context, location);
                 if (json == null) {
                     handler.post(new Runnable() {
                         public void run() {
-                            updateWeatherInterface.onFailure(city);
+                            updateWeatherInterface.onFailure(location);
                         }
                     });
                 } else {
                     handler.post(new Runnable() {
                         public void run() {
-                            updateWeatherInterface.onForecastSuccess(city, json);
+                            updateWeatherInterface.onForecastSuccess(location, json);
                         }
                     });
                 }

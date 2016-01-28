@@ -8,8 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -28,11 +28,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener, UpdateWeatherInterface, CurrentLocationInterface{
+public class MainActivity extends AppCompatActivity implements UpdateWeatherInterface, CurrentLocationInterface {
 
     public static final String TEMPERATURE_FORMAT = "%.1f";
     private TextView tvTemperature;
-    private CityRepository cityRepository;
     private ImageView weatherImage;
     private TextView tvPlace;
     private TextView tvDescription;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
     private Location location;
-    public static final int ENABLE_LOCATION_SERVICES = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         setUpUI();
 
-        cityRepository = new CityRepository(this);
         currentLocation = new CurrentLocation(getApplicationContext(), this);
 
         forecastList = new ArrayList<>();
@@ -66,9 +63,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onClick(View v) {
                 weatherImage.setClickable(false);
-                updateWeatherAndForecast(currentLocation.convertLocationToFullCityName(location));
+                updateWeatherAndForecast(location);
             }
         });
+
+        currentLocation.getLocation();
+
     }
 
     private void setUpUI() {
@@ -86,25 +86,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         FloatingActionButton chooseCityButton = (FloatingActionButton) findViewById(R.id.choose_city);
 
-        chooseCityButton.setOnClickListener(this);
+        Button reloadWeather = (Button) findViewById(R.id.reload_weather_button);
+        reloadWeather.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                hideReloadWeatherScreen();
+                currentLocation.getLocation();
+            }
+        });
+
         chooseCityButton.attachToListView(forecastListView);
     }
 
-    private void updateWeatherAndForecast(String city) {
-        updateCurrentWeather(city);
-        updateForecast(city);
+    private void updateWeatherAndForecast(Location location) {
+        updateCurrentWeather(location);
+        updateForecast(location);
     }
 
-    private void updateCurrentWeather(final String city) {
-        weatherUpdater.getCurrentWeather(city);
+    private void updateCurrentWeather(Location location) {
+        weatherUpdater.getCurrentWeather(location);
     }
 
-    private void updateForecast(final String city) {
-        weatherUpdater.getForecast(city);
+    private void updateForecast(Location location) {
+        weatherUpdater.getForecast(location);
     }
 
     private void renderWeather(Weather weather) {
-        if(weather != null) {
+        if (weather != null) {
             tvTemperature.setText(String.format(TEMPERATURE_FORMAT, weather.getTemperature()) + getString(R.string.celsius_degrees));
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
@@ -120,49 +128,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void populateForecastList(List<ForecastItem> forecast) {
         forecastList.clear();
-        for(int i=0; i<forecast.size(); i++) {
+        for (int i = 0; i < forecast.size(); i++) {
             forecastList.add(forecast.get(i));
         }
         adapter.notifyDataSetChanged();
     }
 
-    private void showCityNameInputDialog() {
-        new MaterialDialog.Builder(this)
-                .titleColorRes(R.color.light_blue)
-                .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
-                .backgroundColorRes(R.color.white)
-                .widgetColor(getResources().getColor(R.color.light_blue))
-                .title(R.string.alert_content)
-                .inputType(InputType.TYPE_CLASS_TEXT)
-                .input(getResources().getString(R.string.alert_input_hint), null, new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-                        updateWeatherAndForecast(input.toString());
-                    }
-                }).show();
-    }
-
     @Override
-    public void onClick(View v) {
-        showCityNameInputDialog();
-    }
-
-    @Override
-    public void onWeatherSuccess(String city, JSONObject json) {
-        cityRepository.saveCity(city);
+    public void onWeatherSuccess(Location location, JSONObject json) {
         renderWeather(WeatherUtils.convertToCurrentWeather(json));
-        updateForecast(city);
+        updateForecast(location);
     }
 
     @Override
-    public void onFailure(String city) {
-        Snackbar.make(coordinatorLayout, getString(R.string.place) + StringUtils.toFirstCharUpperCase(city) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
+    public void onFailure(Location location) {
+        if (location != null)
+            Snackbar.make(coordinatorLayout, getString(R.string.place) + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
         weatherImage.setClickable(true);
     }
 
     @Override
-    public void onForecastSuccess(String city, JSONObject json) {
-        cityRepository.saveCity(city);
+    public void onForecastSuccess(Location location, JSONObject json) {
         populateForecastList(WeatherUtils.convertToForecast(json));
         weatherImage.setClickable(true);
     }
@@ -170,12 +156,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onLocationGot(Location location) {
         this.location = location;
-        updateCurrentWeather(currentLocation.convertLocationToFullCityName(location));
+        updateCurrentWeather(location);
     }
 
-
     @Override
-    public void onProviderDisable() {
+    public void onProviderDisabled() {
         new MaterialDialog.Builder(this)
             .title("No providers found")
             .titleColorRes(R.color.light_blue)
@@ -187,36 +172,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivityForResult(viewIntent, ENABLE_LOCATION_SERVICES);
                     dialog.dismiss();
+                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivity(viewIntent);
+                    showReloadWeatherScreen();
                 }
             })
             .show();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
-            currentLocation.getLocation();
-        }
+    private void showReloadWeatherScreen() {
+        findViewById(R.id.reload_weather_layout).setVisibility(View.VISIBLE);
     }
 
-    @Override
-    public void onProvidersEnabled() {
-        currentLocation.getLocation();
+    private void hideReloadWeatherScreen() {
+        findViewById(R.id.reload_weather_layout).setVisibility(View.GONE);
     }
 
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        currentLocation.getLocation();
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        currentLocation.getLocation();
-    }
 }

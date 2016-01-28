@@ -4,6 +4,5 @@ import android.location.Location;
 
 public interface CurrentLocationInterface {
     void onLocationGot(Location location);
-    void onProviderDisable();
-    void onProvidersEnabled();
+    void onProviderDisabled();
 }
