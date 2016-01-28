@@ -3,7 +3,6 @@ package francescoboschini.com.lightning;
 import android.content.Intent;
 import android.location.Location;
 import android.os.Bundle;
-import android.preference.Preference;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CoordinatorLayout;
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
     private Location location;
+    public static final int ENABLE_LOCATION_SERVICES = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,12 +146,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
-        currentLocation.getLocation();
-    }
-
-    @Override
     public void onClick(View v) {
         showCityNameInputDialog();
     }
@@ -191,20 +185,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
             .backgroundColorRes(R.color.white)
             .widgetColor(getResources().getColor(R.color.light_blue))
-            .content("I'm unable to find your location. Go to Settings end enable location services or insert location manually")
-            .positiveText("GO TO SETTING")
+            .content("Unable to find your location. Go to settings end enable location services or insert location manually")
+            .positiveText("Go to settings")
             .onPositive(new MaterialDialog.SingleButtonCallback() {
                 @Override
                 public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
-                            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(viewIntent);
+                    Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                    startActivityForResult(viewIntent, ENABLE_LOCATION_SERVICES);
+                    dialog.dismiss();
                 }
             })
             .show();
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            currentLocation.getLocation();
+        }
+    }
+
+    @Override
     public void onProvidersEnabled() {
+        currentLocation.getLocation();
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        currentLocation.getLocation();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         currentLocation.getLocation();
     }
 }
