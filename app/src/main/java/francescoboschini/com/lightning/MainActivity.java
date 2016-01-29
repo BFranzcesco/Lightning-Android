@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private ImageView weatherImage;
     private TextView tvPlace;
     private TextView tvDescription;
-    private TextView tvLastUpdate;
     private CoordinatorLayout coordinatorLayout;
     private ListView forecastListView;
     private List<ForecastItem> forecastList;
@@ -63,16 +62,16 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
 
     private void setUpUI() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
-        tvTemperature = (TextView) findViewById(R.id.tv_temperature);
+
         weatherImage = (ImageView) findViewById(R.id.iv_weather);
 
         forecastListView = (ListView) findViewById(R.id.forecast_list_view);
-        final View currentWeatherInfosHeader = getLayoutInflater().inflate(R.layout.current_weather_infos_layout, forecastListView, false);
-        tvPlace = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_place);
-        tvDescription = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_description);
-        tvLastUpdate = (TextView) currentWeatherInfosHeader.findViewById(R.id.tv_last_update);
+        final View weatherInfosHeader = getLayoutInflater().inflate(R.layout.weather_infos_layout, forecastListView, false);
+        tvTemperature = (TextView) weatherInfosHeader.findViewById(R.id.tv_temperature);
+        tvPlace = (TextView) weatherInfosHeader.findViewById(R.id.tv_place);
+        tvDescription = (TextView) weatherInfosHeader.findViewById(R.id.tv_description);
 
-        forecastListView.addHeaderView(currentWeatherInfosHeader);
+        forecastListView.addHeaderView(weatherInfosHeader);
 
         FloatingActionButton chooseCityButton = (FloatingActionButton) findViewById(R.id.reload_weather);
         chooseCityButton.setOnClickListener(new View.OnClickListener() {
@@ -98,9 +97,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
             tvTemperature.setText(StringUtils.formatTemperature(weather.getTemperature()) + getString(R.string.celsius_degrees));
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
-
-            String updatedOn = StringUtils.formatLongDate(weather.getLastUpdate());
-            tvLastUpdate.setText(getString(R.string.last_update) + updatedOn);
 
             new WeatherIconHandler(getApplicationContext()).setIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
         } else {
