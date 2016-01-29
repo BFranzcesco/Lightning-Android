@@ -25,8 +25,6 @@ public class WeatherUtils {
                     json.getString("name"),
                     json.getJSONObject("sys").getString("country"),
                     details.getString("description"),
-                    main.getString("humidity"),
-                    json.getLong("dt"),
                     details.getInt("id"),
                     json.getJSONObject("sys").getLong("sunrise"),
                     json.getJSONObject("sys").getLong("sunset"));
