@@ -10,6 +10,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
@@ -18,12 +19,11 @@ import java.util.Locale;
 public class CurrentLocation extends Service implements LocationListener {
 
     private final Context context;
+    private boolean canGetLocation = false;
 
-    boolean canGetLocation = false;
-
-    CurrentLocationInterface currentLocationInterface;
-    double latitude;
-    double longitude;
+    private CurrentLocationInterface currentLocationInterface;
+    private double latitude;
+    private double longitude;
 
     private static final long MIN_DISTANCE_CHANGE_FOR_UPDATES = 2000; // 1 km
     private static final long MIN_LOCATION_UPDATE_REFRESHING_TIME = 1000 * 60 * 60 * 6; // 6 hours
@@ -38,13 +38,14 @@ public class CurrentLocation extends Service implements LocationListener {
     public void getLocation() {
         try {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
             if (!isGPSEnabled() && !isNetworkEnabled()) {
-                currentLocationInterface.onProviderDisabled();
+                Log.d("LOCATION", "All providers disabled");
             } else {
                 Location location = null;
                 this.canGetLocation = true;
                 if (isNetworkEnabled()) {
-                    locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
+                    Log.d("LOCATION", "Network provider enabled");
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location != null) {
@@ -54,8 +55,9 @@ public class CurrentLocation extends Service implements LocationListener {
                     }
                 }
                 if (isGPSEnabled()) {
+                    Log.d("LOCATION", "GPS provider enabled");
+                    locationManager. requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     if (location == null) {
-                        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                         if (locationManager != null) {
                             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
                             if (location != null) {
@@ -65,19 +67,19 @@ public class CurrentLocation extends Service implements LocationListener {
                         }
                     }
                 }
-            currentLocationInterface.onLocationGot(location);
+                currentLocationInterface.onLocationGot(location);
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private boolean isGPSEnabled() {
-        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
-    }
-
     private boolean isNetworkEnabled() {
         return locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
+    }
+
+    private boolean isGPSEnabled() {
+        return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     public String convertLocationToFullCityName(Location location) {
@@ -98,20 +100,22 @@ public class CurrentLocation extends Service implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
+        Log.d("LOCATION", "onDisabled");
+        currentLocationInterface.onProviderDisabled();
     }
 
     @Override
     public void onProviderEnabled(String provider) {
+        Log.d("LOCATION", "onEnabled");
+        currentLocationInterface.onProviderEnabled();
     }
 
     @Override
-    public void onLocationChanged(android.location.Location location) {
-
+    public void onLocationChanged(Location location) {
     }
 
     @Override
     public void onStatusChanged(String provider, int status, Bundle extras) {
-
     }
 
     @Override

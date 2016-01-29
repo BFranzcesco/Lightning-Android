@@ -3,6 +3,7 @@ package francescoboschini.com.lightning;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 
 import org.json.JSONObject;
 
@@ -13,13 +14,16 @@ import java.net.URL;
 
 public class RemoteData {
 
-    private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric";
-    private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric";
+    private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&lang=%s";
+    private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric&lang=%s";
 
 
-    private static JSONObject getRemoteData(Context context, Location location, String dataType) {
+    private static JSONObject getRemoteData(Context context, Location location, String dataType, String countryCode) {
         try {
-            URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude()));
+            URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude(), countryCode));
+
+            Log.d("URL", url.toString());
+
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
             connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
@@ -45,10 +49,10 @@ public class RemoteData {
     }
 
     public static JSONObject getWeather(Context context, Location location) {
-        return getRemoteData(context, location, WEATHER_MAP_API);
+        return getRemoteData(context, location, WEATHER_MAP_API, context.getResources().getString(R.string.country_code));
     }
 
     public static JSONObject getForecast(Context context, Location location) {
-        return getRemoteData(context, location, FORECAST_MAP_API);
+        return getRemoteData(context, location, FORECAST_MAP_API, context.getResources().getString(R.string.country_code));
     }
 }
