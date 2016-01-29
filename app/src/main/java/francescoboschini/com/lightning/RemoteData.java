@@ -1,6 +1,5 @@
 package francescoboschini.com.lightning;
 
-
 import android.content.Context;
 import android.location.Location;
 import android.util.Log;
@@ -16,7 +15,6 @@ public class RemoteData {
 
     private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&lang=%s";
     private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric&lang=%s";
-
 
     private static JSONObject getRemoteData(Context context, Location location, String dataType, String countryCode) {
         try {

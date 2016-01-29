@@ -14,7 +14,7 @@
     <string name="last_update">"Ultimo aggiornamento: "</string>
     <string name="celsius_degrees">℃</string>
     <string name="unable_to_find_location">Posizione non trovata</string>
-    <string name="enable_location_services">Abilità il servizio di localizzazione dalle impostazioni e aggiorna il meteo.</string>
+    <string name="enable_location_services">Abilita il servizio di localizzazione dalle impostazioni e aggiorna il meteo.</string>
     <string name="go_to_settings">vai alle impostazioni</string>
 
 </resources>

@@ -30,7 +30,6 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements UpdateWeatherInterface, CurrentLocationInterface {
 
-    public static final String TEMPERATURE_FORMAT = "%.1f";
     private TextView tvTemperature;
     private ImageView weatherImage;
     private TextView tvPlace;
@@ -96,7 +95,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
 
     private void renderWeather(Weather weather) {
         if (weather != null) {
-            tvTemperature.setText(String.format(TEMPERATURE_FORMAT, weather.getTemperature()) + getString(R.string.celsius_degrees));
+            tvTemperature.setText(StringUtils.formatTemperature(weather.getTemperature()) + getString(R.string.celsius_degrees));
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
 

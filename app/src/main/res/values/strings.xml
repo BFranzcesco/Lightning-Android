@@ -15,5 +15,5 @@
     <string name="celsius_degrees">℃</string>
     <string name="unable_to_find_location">Unable to find your location</string>
     <string name="enable_location_services">Please enable location from settings and reload weather.</string>
-    <string name="go_to_settings">GO TO SETTINGS</string>
+    <string name="go_to_settings">go to settings</string>
 </resources>

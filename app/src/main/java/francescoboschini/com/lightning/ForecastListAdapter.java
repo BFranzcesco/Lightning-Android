@@ -28,10 +28,10 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
             convertView = inflater.inflate(R.layout.forecast_item_raw, null);
             viewHolder = new ViewHolder();
 
-            viewHolder.description = (TextView)convertView.findViewById(R.id.description);
-            viewHolder.temperature = (TextView)convertView.findViewById(R.id.temperature);
-            viewHolder.date = (TextView)convertView.findViewById(R.id.date);
-            viewHolder.weatherIcon = (ImageView)convertView.findViewById(R.id.weather_icon);
+            viewHolder.description = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.temperature = (TextView) convertView.findViewById(R.id.temperature);
+            viewHolder.date = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.weatherIcon = (ImageView) convertView.findViewById(R.id.weather_icon);
 
             convertView.setTag(viewHolder);
 
@@ -40,7 +40,7 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
         }
 
         ForecastItem forecastItem = getItem(position);
-        viewHolder.temperature.setText(forecastItem.getTemperature() + getContext().getResources().getString(R.string.celsius_degrees));
+        viewHolder.temperature.setText(StringUtils.formatTemperature(forecastItem.getTemperature()) + getContext().getResources().getString(R.string.celsius_degrees));
         viewHolder.description.setText(StringUtils.toFirstCharUpperCase(forecastItem.getDescription()));
         viewHolder.date.setText(StringUtils.simpleFormatLongDate(forecastItem.getDate()));
         new WeatherIconHandler(getContext()).setIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode());

@@ -9,6 +9,7 @@ public class StringUtils {
 
     public static final String DATE_FORMAT = "dd MMM yyyy, HH:mm";
     public static final String SIMPLE_DATE_FORMAT = "EEE dd MMM, HH:mm";
+    public static final String TEMPERATURE_FORMAT = "%.1f";
     private static final DateFormat lastUpdateFormat = new SimpleDateFormat(DATE_FORMAT);
     private static final DateFormat lastUpdateSimpleFormat = new SimpleDateFormat(SIMPLE_DATE_FORMAT);
 
@@ -24,6 +25,10 @@ public class StringUtils {
 
     public static String simpleFormatLongDate(Long date) {
         return lastUpdateSimpleFormat.format(new Date(date * 1000));
+    }
+
+    public static String formatTemperature(Double temperature) {
+        return String.format(TEMPERATURE_FORMAT, temperature);
     }
 
 }
