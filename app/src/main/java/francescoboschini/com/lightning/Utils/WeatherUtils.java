@@ -1,6 +1,5 @@
 package francescoboschini.com.lightning.Utils;
 
-import android.support.design.widget.Snackbar;
 import android.util.Log;
 
 import org.json.JSONArray;
@@ -36,7 +35,7 @@ public class WeatherUtils {
         return weather;
     }
 
-    public static List<ForecastItem> convertToForecast(JSONObject json) {
+    public static List<ForecastItem> convertToForecast(JSONObject json, long sunrise, long sunset) {
         List<ForecastItem> forecast = new ArrayList<ForecastItem>();
 
         try {
@@ -53,7 +52,36 @@ public class WeatherUtils {
                         main.getDouble("temp"),
                         description,
                         jsonObject.getLong("dt"),
-                        weatherId));
+                        weatherId, sunrise, sunset));
+            }
+
+        } catch(Exception e) {
+            Log.e("Lightning", "One or more fields not found in the JSON data");
+        }
+
+        return forecast;
+    }
+
+    public static List<ForecastItem> convertToForecast(JSONObject json) {
+        List<ForecastItem> forecast = new ArrayList<ForecastItem>();
+
+        try {
+            JSONArray jsonList = json.getJSONArray("list");
+
+            for(int i=0; i<(jsonList.length()/2); i++) {
+                JSONObject jsonObject = jsonList.getJSONObject(i);
+                JSONObject main = jsonObject.getJSONObject("main");
+                JSONArray weatherList = jsonObject.getJSONArray("weather");
+                String description = weatherList.getJSONObject(0).getString("description");
+                int weatherId = weatherList.getJSONObject(0).getInt("id");
+                long sunrise = 0;
+                long sunset = 0;
+
+                forecast.add(new ForecastItem (
+                        main.getDouble("temp"),
+                        description,
+                        jsonObject.getLong("dt"),
+                        weatherId, sunrise, sunset));
             }
 
         } catch(Exception e) {

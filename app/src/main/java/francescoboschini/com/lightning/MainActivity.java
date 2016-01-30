@@ -2,6 +2,7 @@ package francescoboschini.com.lightning;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -63,13 +64,22 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private void setUpUI() {
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
 
+        Typeface typeFaceMedium = Typeface.createFromAsset(getAssets(), "fonts/brandon_medium.ttf");
+        Typeface typeFaceRegular = Typeface.createFromAsset(getAssets(), "fonts/brandon_regular.ttf");
+
         weatherImage = (ImageView) findViewById(R.id.iv_weather);
 
         forecastListView = (ListView) findViewById(R.id.forecast_list_view);
         final View weatherInfosHeader = getLayoutInflater().inflate(R.layout.weather_infos_layout, forecastListView, false);
+
         tvTemperature = (TextView) weatherInfosHeader.findViewById(R.id.tv_temperature);
+        tvTemperature.setTypeface(typeFaceMedium);
+
         tvPlace = (TextView) weatherInfosHeader.findViewById(R.id.tv_place);
+        tvPlace.setTypeface(typeFaceRegular);
+
         tvDescription = (TextView) weatherInfosHeader.findViewById(R.id.tv_description);
+        tvDescription.setTypeface(typeFaceRegular);
 
         forecastListView.addHeaderView(weatherInfosHeader);
 
@@ -88,8 +98,8 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         weatherUpdater.getCurrentWeather(location);
     }
 
-    private void updateForecast(Location location) {
-        weatherUpdater.getForecast(location);
+    private void updateForecast(Location location, Long sunrise, long sunset) {
+        weatherUpdater.getForecast(location, sunrise, sunset);
     }
 
     private void renderWeather(Weather weather) {
@@ -114,8 +124,14 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
 
     @Override
     public void onWeatherSuccess(Location location, JSONObject json) {
-        renderWeather(WeatherUtils.convertToCurrentWeather(json));
-        updateForecast(location);
+        Weather weather = WeatherUtils.convertToCurrentWeather(json);
+        renderWeather(weather);
+        updateForecast(location, weather.getSunrise(), weather.getSunset());
+    }
+
+    @Override
+    public void onForecastSuccess(Location location, JSONObject json) {
+
     }
 
     @Override
@@ -125,8 +141,8 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     @Override
-    public void onForecastSuccess(Location location, JSONObject json) {
-        populateForecastList(WeatherUtils.convertToForecast(json));
+    public void onForecastSuccess(Location location, JSONObject json, long sunrise, long sunset) {
+        populateForecastList(WeatherUtils.convertToForecast(json, sunrise, sunset));
     }
 
     @Override

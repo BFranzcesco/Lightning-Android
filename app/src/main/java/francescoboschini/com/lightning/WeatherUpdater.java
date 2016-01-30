@@ -38,6 +38,28 @@ public class WeatherUpdater {
         }.start();
     }
 
+    public void getForecast(final Location location, final long sunrise, final long sunset) {
+        handler = new Handler();
+        new Thread() {
+            public void run() {
+                final JSONObject json = RemoteData.getForecast(context, location);
+                if (json == null) {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            updateWeatherInterface.onFailure(location);
+                        }
+                    });
+                } else {
+                    handler.post(new Runnable() {
+                        public void run() {
+                            updateWeatherInterface.onForecastSuccess(location, json, sunrise, sunset);
+                        }
+                    });
+                }
+            }
+        }.start();
+    }
+
     public void getForecast(final Location location) {
         handler = new Handler();
         new Thread() {

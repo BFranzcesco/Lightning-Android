@@ -1,6 +1,7 @@
 package francescoboschini.com.lightning;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,9 +29,18 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
             convertView = inflater.inflate(R.layout.forecast_item_raw, null);
             viewHolder = new ViewHolder();
 
+            Typeface typeFaceMedium = Typeface.createFromAsset(getContext().getAssets(), "fonts/brandon_medium.ttf");
+            Typeface typeFaceRegular = Typeface.createFromAsset(getContext().getAssets(), "fonts/brandon_regular.ttf");
+
             viewHolder.description = (TextView) convertView.findViewById(R.id.description);
+            viewHolder.description.setTypeface(typeFaceMedium);
+
             viewHolder.temperature = (TextView) convertView.findViewById(R.id.temperature);
+            viewHolder.temperature.setTypeface(typeFaceRegular);
+
             viewHolder.date = (TextView) convertView.findViewById(R.id.date);
+            viewHolder.date.setTypeface(typeFaceRegular);
+
             viewHolder.weatherIcon = (ImageView) convertView.findViewById(R.id.weather_icon);
 
             convertView.setTag(viewHolder);
@@ -40,10 +50,11 @@ public class ForecastListAdapter extends ArrayAdapter<ForecastItem> {
         }
 
         ForecastItem forecastItem = getItem(position);
+
         viewHolder.temperature.setText(StringUtils.formatTemperature(forecastItem.getTemperature()) + getContext().getResources().getString(R.string.celsius_degrees));
         viewHolder.description.setText(StringUtils.toFirstCharUpperCase(forecastItem.getDescription()));
         viewHolder.date.setText(StringUtils.simpleFormatLongDate(forecastItem.getDate()));
-        new WeatherIconHandler(getContext()).setIcon(viewHolder.weatherIcon, forecastItem.getWeatherCode());
+        new WeatherIconHandler(getContext()).setIconBasedOnTime(viewHolder.weatherIcon, forecastItem.getWeatherCode(), forecastItem.getDate(), forecastItem.getSunrise(), forecastItem.getSunset());
 
         return convertView;
     }
