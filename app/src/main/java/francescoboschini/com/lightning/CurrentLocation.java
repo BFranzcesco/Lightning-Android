@@ -40,12 +40,10 @@ public class CurrentLocation extends Service implements LocationListener {
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
             if (!isGPSEnabled() && !isNetworkEnabled()) {
-                Log.d("LOCATION", "All providers disabled");
             } else {
                 Location location = null;
                 this.canGetLocation = true;
                 if (isNetworkEnabled()) {
-                    Log.d("LOCATION", "Network provider enabled");
                     if (locationManager != null) {
                         location = locationManager.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
                         if (location != null) {
@@ -55,7 +53,6 @@ public class CurrentLocation extends Service implements LocationListener {
                     }
                 }
                 if (isGPSEnabled()) {
-                    Log.d("LOCATION", "GPS provider enabled");
                     locationManager. requestLocationUpdates(LocationManager.GPS_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
                     if (location == null) {
                         if (locationManager != null) {
@@ -100,13 +97,11 @@ public class CurrentLocation extends Service implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-        Log.d("LOCATION", "onDisabled");
         currentLocationInterface.onProviderDisabled();
     }
 
     @Override
     public void onProviderEnabled(String provider) {
-        Log.d("LOCATION", "onEnabled");
         currentLocationInterface.onProviderEnabled();
     }
 

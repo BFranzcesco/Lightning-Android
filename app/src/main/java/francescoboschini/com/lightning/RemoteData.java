@@ -20,8 +20,6 @@ public class RemoteData {
         try {
             URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude(), countryCode));
 
-            Log.d("URL", url.toString());
-
             HttpURLConnection connection = (HttpURLConnection)url.openConnection();
 
             connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));

@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         tvPlace.setTypeface(typeFaceRegular);
 
         tvDescription = (TextView) weatherInfosHeader.findViewById(R.id.tv_description);
-        tvDescription.setTypeface(typeFaceRegular);
+        tvDescription.setTypeface(typeFaceMedium);
 
         forecastListView.addHeaderView(weatherInfosHeader);
 
