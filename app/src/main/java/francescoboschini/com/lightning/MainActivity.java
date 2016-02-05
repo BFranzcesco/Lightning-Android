@@ -130,11 +130,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     @Override
-    public void onForecastSuccess(Location location, JSONObject json) {
-
-    }
-
-    @Override
     public void onFailure(Location location) {
         if (location != null)
             Snackbar.make(coordinatorLayout, getString(R.string.place) + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
