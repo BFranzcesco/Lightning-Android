@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     @Override
     public void onFailure(Location location) {
         if (location != null)
-            Snackbar.make(coordinatorLayout, getString(R.string.place) + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)) + getString(R.string.not_found), Snackbar.LENGTH_LONG).show();
+            Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
     }
 
     @Override
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     private void showEnableLocationServicesDialog() {
-        if(!isShowing) {
+        if (!isShowing) {
             isShowing = true;
             MaterialDialog enableLocationServicesDialog = new MaterialDialog.Builder(this)
                     .title(getResources().getString(R.string.unable_to_find_location))
