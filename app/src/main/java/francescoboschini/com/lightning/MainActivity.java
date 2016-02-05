@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
     private boolean isShowing = false;
+    private LocationRepository locationRepository;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         setContentView(R.layout.coordinator_layout);
 
         weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
+        locationRepository = new LocationRepository(this);
 
         setUpUI();
 
