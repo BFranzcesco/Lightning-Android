@@ -1,7 +1,6 @@
 package francescoboschini.com.lightning;
 
 import android.location.Location;
-
 import org.json.JSONObject;
 
 public interface UpdateWeatherInterface {

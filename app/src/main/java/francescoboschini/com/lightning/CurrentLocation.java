@@ -10,7 +10,6 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.util.Log;
 
 import java.io.IOException;
 import java.util.List;
@@ -88,9 +87,8 @@ public class CurrentLocation extends Service implements LocationListener {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        if (addresses.size() > 0) {
-            cityName = addresses.get(0).getLocality() + "," + addresses.get(0).getCountryCode();
-        }
+        if (addresses.size() > 0)
+            cityName = addresses.get(0).getLocality();
 
         return cityName;
     }

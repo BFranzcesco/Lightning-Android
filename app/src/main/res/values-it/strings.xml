@@ -8,13 +8,14 @@
     <string name="alert_input_hint">Es. Milano</string>
     <string name="alert_input_prefill">Es. Milano</string>
     <string name="alert_content">Inserisci la tua città</string>
-    <string name="place">"La città "</string>
-    <string name="not_found">" non è stata trovata."</string>
-    <string name="humidity">"Umidità: "</string>
-    <string name="last_update">"Ultimo aggiornamento: "</string>
+    <string name="place">La città </string>
+    <string name="not_found"> non è stata trovata.</string>
+    <string name="humidity">Umidità: </string>
+    <string name="last_update">Ultimo aggiornamento: </string>
     <string name="celsius_degrees">℃</string>
     <string name="unable_to_find_location">Posizione non trovata</string>
     <string name="enable_location_services">Abilita la geolocalizzazione dalle impostazioni e aggiorna il meteo.</string>
     <string name="go_to_settings">vai alle impostazioni</string>
+    <string name="unable_to_find_weather">Meteo attualmente non disponibile per</string>
 
 </resources>

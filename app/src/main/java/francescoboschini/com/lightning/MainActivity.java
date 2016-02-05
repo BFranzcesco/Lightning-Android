@@ -18,12 +18,14 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import com.crashlytics.android.Crashlytics;
 import com.melnykov.fab.FloatingActionButton;
 
 import francescoboschini.com.lightning.Utils.StringUtils;
 import francescoboschini.com.lightning.Utils.WeatherIconHandler;
 import francescoboschini.com.lightning.Utils.WeatherUtils;
 
+import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
@@ -46,6 +48,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.coordinator_layout);
 
         weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
@@ -132,7 +135,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     @Override
     public void onFailure(Location location) {
         if (location != null)
-            Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
+            showUnableToFindWeatherForLocation(location);
     }
 
     @Override
@@ -185,5 +188,9 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
             enableLocationServicesDialog.show();
 
         }
+    }
+
+    private void showUnableToFindWeatherForLocation(Location location) {
+        Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + " " + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
     }
 }

@@ -20,14 +20,14 @@ public class RemoteData {
         try {
             URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude(), countryCode));
 
-            HttpURLConnection connection = (HttpURLConnection)url.openConnection();
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.addRequestProperty("x-api-key", context.getString(R.string.open_weather_maps_app_id));
 
             BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
 
             StringBuffer json = new StringBuffer(1024);
-            String tmp="";
+            String tmp = "";
             while((tmp=reader.readLine())!=null)
                 json.append(tmp).append("\n");
             reader.close();
