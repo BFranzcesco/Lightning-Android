@@ -2,8 +2,6 @@ package francescoboschini.com.lightning;
 
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
 import android.os.Build;
@@ -15,7 +13,6 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,7 +20,6 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import com.afollestad.materialdialogs.Theme;
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -183,7 +179,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
             MaterialDialog enableLocationServicesDialog = new MaterialDialog.Builder(this)
                     .title(getResources().getString(R.string.unable_to_find_location))
                     .titleColorRes(R.color.light_blue)
-                    .contentColor(getResources().getColor(R.color.dark_asphalt_blue))
+                    .contentColor(getResources().getColor(R.color.blue_night))
                     .backgroundColorRes(R.color.white)
                     .widgetColor(getResources().getColor(R.color.light_blue))
                     .autoDismiss(false)

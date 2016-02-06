@@ -22,7 +22,7 @@
             android:id="@+id/night"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/dark_asphalt_blue"
+            android:background="@color/blue_night"
             android:visibility="gone" />
 
         <ImageView
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:listSelector="@android:color/transparent"
-            android:divider="@color/white" />
+            android:divider="@android:color/transparent" />
 
     </LinearLayout>
 
@@ -60,6 +60,6 @@
         android:src="@android:drawable/stat_notify_sync"
         fab:fab_colorNormal="@color/light_blue"
         fab:fab_colorPressed="@color/light_blue_dark"
-        fab:fab_colorRipple="@color/light_asphalt_blue" />
+        fab:fab_colorRipple="@color/asphalt_blue_light" />
 
 </RelativeLayout>
