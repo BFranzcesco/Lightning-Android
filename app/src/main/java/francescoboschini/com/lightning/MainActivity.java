@@ -2,8 +2,11 @@ package francescoboschini.com.lightning;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
@@ -11,6 +14,8 @@ import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -18,6 +23,7 @@ import android.widget.TextView;
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
+import com.afollestad.materialdialogs.Theme;
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.fab.FloatingActionButton;
 
@@ -45,6 +51,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private CurrentLocation currentLocation;
     private boolean isShowing = false;
     private LocationRepository locationRepository;
+    private View nightView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,6 +93,8 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         tvDescription = (TextView) weatherInfosHeader.findViewById(R.id.tv_description);
         tvDescription.setTypeface(typeFaceMedium);
 
+        nightView = findViewById(R.id.night);
+
         forecastListView.addHeaderView(weatherInfosHeader);
 
         FloatingActionButton chooseCityButton = (FloatingActionButton) findViewById(R.id.reload_weather);
@@ -113,7 +122,16 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
 
-            new WeatherIconHandler(getApplicationContext()).setIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
+            WeatherIconHandler weatherIconHandler = new WeatherIconHandler(getApplicationContext());
+            weatherIconHandler.setIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
+
+            nightView.setVisibility(weatherIconHandler.isDay(weather.getSunrise(), weather.getSunset()) ? View.GONE : View.VISIBLE);
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                Window window = getWindow();
+                window.setStatusBarColor(getResources().getColor(R.color.header_color_night));
+            }
+
         } else {
             Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
         }

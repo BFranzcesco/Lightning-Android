@@ -20,8 +20,7 @@ public class WeatherIconHandler {
         sunset = sunset * 1000;
 
         if (weatherId == 800) {
-            long currentTime = new Date().getTime();
-            if (currentTime >= sunrise && currentTime < sunset) {
+            if (isDay(sunrise, sunset)) {
                 imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.sunny));
             } else {
                 imageView.setImageDrawable(context.getResources().getDrawable(R.drawable.clear_night));
@@ -48,6 +47,10 @@ public class WeatherIconHandler {
                     break;
             }
         }
+    }
+
+    public boolean isDay(long sunrise, long sunset) {
+        return new Date().getTime() >= sunrise && new Date().getTime() < sunset;
     }
 
     public void setIconBasedOnTime(ImageView imageView, int weatherCode, long date, long sunrise, long sunset) {

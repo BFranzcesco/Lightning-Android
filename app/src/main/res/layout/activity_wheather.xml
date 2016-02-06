@@ -18,6 +18,13 @@
             android:layout_height="match_parent"
             android:background="@drawable/header_image" />
 
+        <View
+            android:id="@+id/night"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/dark_asphalt_blue"
+            android:visibility="gone" />
+
         <ImageView
             android:id="@+id/iv_weather"
             android:layout_width="98dp"

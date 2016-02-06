@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="dark_asphalt_blue">#354b60</color>
+    <color name="dark_asphalt_blue">#99151E26</color>
     <color name="light_asphalt_blue">#34495e</color>
     <color name="dark_grey">#7f8c8d</color>
     <color name="grey">#bdc3c7</color>
@@ -20,5 +20,6 @@
 
     <color name="header_color">#A4E4EC</color>
     <color name="header_color_dark">#6CBEA0</color>
+    <color name="header_color_night">#506D75</color>
 
 </resources>
