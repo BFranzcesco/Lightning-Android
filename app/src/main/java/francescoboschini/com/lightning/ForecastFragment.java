@@ -8,77 +8,69 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
-import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
 
-import com.crashlytics.android.Crashlytics;
-import com.melnykov.fab.FloatingActionButton;
-
-import francescoboschini.com.lightning.Utils.StringUtils;
-import francescoboschini.com.lightning.Utils.WeatherIconHandler;
-import francescoboschini.com.lightning.Utils.WeatherUtils;
-
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements UpdateWeatherInterface, CurrentLocationInterface {
+import francescoboschini.com.lightning.Utils.StringUtils;
+import francescoboschini.com.lightning.Utils.WeatherIconHandler;
+import francescoboschini.com.lightning.Utils.WeatherUtils;
 
-    private TextView tvTemperature;
-    private ImageView weatherImage;
-    private TextView tvPlace;
-    private TextView tvDescription;
-    private CoordinatorLayout coordinatorLayout;
+public class ForecastFragment extends Fragment implements UpdateWeatherInterface, CurrentLocationInterface {
+
     private ListView forecastListView;
     private List<ForecastItem> forecastList;
     private ForecastListAdapter adapter;
-    private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
+    private TextView tvTemperature;
     private boolean isShowing = false;
-    private LocationRepository locationRepository;
-    private View nightView;
+    private WeatherUpdater weatherUpdater;
+    private TextView tvPlace;
+    private TextView tvDescription;
+
+    public ForecastFragment() {
+    }
+
+    public static ForecastFragment newInstance() {
+        ForecastFragment fragment = new ForecastFragment();
+        return fragment;
+    }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
-        setContentView(R.layout.coordinator_layout);
 
-        weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
-        locationRepository = new LocationRepository(this);
+        weatherUpdater = new WeatherUpdater(getActivity(), this);
+        currentLocation = new CurrentLocation(getActivity(), this);
 
         setUpUI();
 
-        currentLocation = new CurrentLocation(getApplicationContext(), this);
-
         forecastList = new ArrayList<>();
-        adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
+        adapter = new ForecastListAdapter(getActivity(), R.layout.forecast_item_raw, forecastList);
         forecastListView.setAdapter(adapter);
 
         currentLocation.getLocation();
     }
 
     private void setUpUI() {
-        coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
+        Typeface typeFaceMedium = Typeface.createFromAsset(getActivity().getAssets(), "fonts/brandon_medium.ttf");
+        Typeface typeFaceRegular = Typeface.createFromAsset(getActivity().getAssets(), "fonts/brandon_regular.ttf");
 
-        Typeface typeFaceMedium = Typeface.createFromAsset(getAssets(), "fonts/brandon_medium.ttf");
-        Typeface typeFaceRegular = Typeface.createFromAsset(getAssets(), "fonts/brandon_regular.ttf");
-
-        weatherImage = (ImageView) findViewById(R.id.iv_weather);
-
-        forecastListView = (ListView) findViewById(R.id.forecast_list_view);
-        final View weatherInfosHeader = getLayoutInflater().inflate(R.layout.weather_infos_layout, forecastListView, false);
+        forecastListView = (ListView) getActivity().findViewById(R.id.forecast_list_view);
+        final View weatherInfosHeader = getActivity().getLayoutInflater().inflate(R.layout.weather_infos_layout, forecastListView, false);
 
         tvTemperature = (TextView) weatherInfosHeader.findViewById(R.id.tv_temperature);
         tvTemperature.setTypeface(typeFaceMedium);
@@ -89,19 +81,12 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         tvDescription = (TextView) weatherInfosHeader.findViewById(R.id.tv_description);
         tvDescription.setTypeface(typeFaceMedium);
 
-        nightView = findViewById(R.id.night);
-
         forecastListView.addHeaderView(weatherInfosHeader);
+    }
 
-        FloatingActionButton chooseCityButton = (FloatingActionButton) findViewById(R.id.reload_weather);
-        chooseCityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentLocation.getLocation();
-            }
-        });
-
-        chooseCityButton.attachToListView(forecastListView);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.forecast_fragment, container, false);
     }
 
     private void updateCurrentWeather(Location location) {
@@ -118,18 +103,13 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
             tvPlace.setText(StringUtils.toFirstCharUpperCase(weather.getCityName()) + ", " + weather.getCountry());
             tvDescription.setText(StringUtils.toFirstCharUpperCase(weather.getDescription()));
 
-            WeatherIconHandler weatherIconHandler = new WeatherIconHandler(getApplicationContext());
-            weatherIconHandler.setIconBasedOnCurrentTime(weatherImage, weather.getWeatherCode(), weather.getSunrise(), weather.getSunset());
-
-            nightView.setVisibility(weatherIconHandler.isDay(weather.getSunrise(), weather.getSunset()) ? View.GONE : View.VISIBLE);
-
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                Window window = getWindow();
+                Window window = getActivity().getWindow();
                 window.setStatusBarColor(getResources().getColor(R.color.header_color_night));
             }
 
         } else {
-            Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
+            //Snackbar.make(coordinatorLayout, R.string.some_details_not_found, Snackbar.LENGTH_SHORT).show();
         }
     }
 
@@ -144,7 +124,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     @Override
     public void onWeatherSuccess(Location location, JSONObject json) {
         Weather weather = WeatherUtils.convertToCurrentWeather(json);
-        renderWeather(weather);
         updateForecast(location, weather.getSunrise(), weather.getSunset());
     }
 
@@ -176,7 +155,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private void showEnableLocationServicesDialog() {
         if (!isShowing) {
             isShowing = true;
-            MaterialDialog enableLocationServicesDialog = new MaterialDialog.Builder(this)
+            MaterialDialog enableLocationServicesDialog = new MaterialDialog.Builder(getContext())
                     .title(getResources().getString(R.string.unable_to_find_location))
                     .titleColorRes(R.color.light_blue)
                     .contentColor(getResources().getColor(R.color.blue_night))
@@ -207,6 +186,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     private void showUnableToFindWeatherForLocation(Location location) {
-        Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + " " + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
+        //Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + " " + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
     }
 }
