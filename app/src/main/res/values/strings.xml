@@ -17,4 +17,5 @@
     <string name="enable_location_services">Please enable location from settings and reload weather.</string>
     <string name="go_to_settings">go to settings</string>
     <string name="unable_to_find_weather">Unable to find weather information for</string>
+    <string name="enable_location_services_suggestion">For more accurate weather, enable location services from settings</string>
 </resources>

@@ -1,9 +1,8 @@
 package francescoboschini.com.lightning;
 
-import android.location.Location;
-
 public interface CurrentLocationInterface {
-    void onLocationGot(Location location);
+    void onLocationGot(MyLocation location);
     void onProviderDisabled();
     void onProviderEnabled();
+    void onProviderDisabledSuggestion();
 }

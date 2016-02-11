@@ -46,7 +46,6 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private WeatherUpdater weatherUpdater;
     private CurrentLocation currentLocation;
     private boolean isShowing = false;
-    private LocationRepository locationRepository;
     private View nightView;
 
     @Override
@@ -56,11 +55,9 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         setContentView(R.layout.coordinator_layout);
 
         weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
-        locationRepository = new LocationRepository(this);
+        currentLocation = new CurrentLocation(getApplicationContext(), this);
 
         setUpUI();
-
-        currentLocation = new CurrentLocation(getApplicationContext(), this);
 
         forecastList = new ArrayList<>();
         adapter = new ForecastListAdapter(this, R.layout.forecast_item_raw, forecastList);
@@ -104,11 +101,11 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         chooseCityButton.attachToListView(forecastListView);
     }
 
-    private void updateCurrentWeather(Location location) {
+    private void updateCurrentWeather(MyLocation location) {
         weatherUpdater.getCurrentWeather(location);
     }
 
-    private void updateForecast(Location location, Long sunrise, long sunset) {
+    private void updateForecast(MyLocation location, Long sunrise, long sunset) {
         weatherUpdater.getForecast(location, sunrise, sunset);
     }
 
@@ -142,31 +139,46 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     @Override
-    public void onWeatherSuccess(Location location, JSONObject json) {
+    public void onWeatherSuccess(MyLocation location, JSONObject json) {
         Weather weather = WeatherUtils.convertToCurrentWeather(json);
         renderWeather(weather);
         updateForecast(location, weather.getSunrise(), weather.getSunset());
     }
 
     @Override
-    public void onFailure(Location location) {
+    public void onFailure(MyLocation location) {
         if (location != null)
             showUnableToFindWeatherForLocation(location);
     }
 
     @Override
-    public void onForecastSuccess(Location location, JSONObject json, long sunrise, long sunset) {
+    public void onForecastSuccess(MyLocation location, JSONObject json, long sunrise, long sunset) {
         populateForecastList(WeatherUtils.convertToForecast(json, sunrise, sunset));
     }
 
     @Override
-    public void onLocationGot(Location location) {
+    public void onLocationGot(MyLocation location) {
         updateCurrentWeather(location);
     }
 
     @Override
     public void onProviderDisabled() {
         showEnableLocationServicesDialog();
+    }
+
+    @Override
+    public void onProviderDisabledSuggestion() {
+        showSuggestEnableLocationServices();
+    }
+
+    private void showSuggestEnableLocationServices() {
+        Snackbar.make(coordinatorLayout, R.string.enable_location_services_suggestion, Snackbar.LENGTH_LONG)
+                .setAction(getResources().getString(R.string.go_to_settings), new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        goToLocationSettings();
+                    }
+                }).show();
     }
 
     @Override
@@ -196,8 +208,7 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
                         public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
                             dialog.dismiss();
                             isShowing = false;
-                            Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                            startActivity(viewIntent);
+                            goToLocationSettings();
                         }
                     }).build();
 
@@ -206,7 +217,12 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
         }
     }
 
-    private void showUnableToFindWeatherForLocation(Location location) {
+    private void goToLocationSettings() {
+        Intent viewIntent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+        startActivity(viewIntent);
+    }
+
+    private void showUnableToFindWeatherForLocation(MyLocation location) {
         Snackbar.make(coordinatorLayout, getString(R.string.unable_to_find_weather) + " " + StringUtils.toFirstCharUpperCase(currentLocation.convertLocationToFullCityName(location)), Snackbar.LENGTH_LONG).show();
     }
 }

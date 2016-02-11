@@ -28,6 +28,7 @@ public class CurrentLocation extends Service implements LocationListener {
     private static final long MIN_LOCATION_UPDATE_REFRESHING_TIME = 1000 * 60 * 60 * 6; // 6 hours
 
     protected LocationManager locationManager;
+    private LocationRepository locationRepository;
 
     public CurrentLocation(Context context, CurrentLocationInterface currentLocationInterface) {
         this.context = context;
@@ -36,9 +37,14 @@ public class CurrentLocation extends Service implements LocationListener {
 
     public void getLocation() {
         try {
+            locationRepository = new LocationRepository(context);
             locationManager = (LocationManager) context.getSystemService(LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, MIN_LOCATION_UPDATE_REFRESHING_TIME, MIN_DISTANCE_CHANGE_FOR_UPDATES, this);
             if (providersAreDisabled()) {
+                if(!locationRepository.isEmpty()) {
+                    currentLocationInterface.onLocationGot(locationRepository.getSavedLocation());
+                    return;
+                }
             } else {
                 Location location = null;
                 this.canGetLocation = true;
@@ -63,7 +69,9 @@ public class CurrentLocation extends Service implements LocationListener {
                         }
                     }
                 }
-                currentLocationInterface.onLocationGot(location);
+                MyLocation myLocation = new MyLocation(location.getLatitude(), location.getLongitude(), getCityNameFromLocation(location));
+                currentLocationInterface.onLocationGot(myLocation);
+                locationRepository.saveCity(myLocation);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -82,7 +90,22 @@ public class CurrentLocation extends Service implements LocationListener {
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
-    public String convertLocationToFullCityName(Location location) {
+    public String convertLocationToFullCityName(MyLocation location) {
+        String cityName = location.getCityName();
+        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+            addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        if (addresses.size() > 0)
+            cityName = addresses.get(0).getLocality();
+
+        return cityName;
+    }
+
+    public String getCityNameFromLocation(Location location) {
         String cityName = null;
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
         List<Address> addresses = null;
@@ -99,7 +122,10 @@ public class CurrentLocation extends Service implements LocationListener {
 
     @Override
     public void onProviderDisabled(String provider) {
-        currentLocationInterface.onProviderDisabled();
+        if(locationRepository.isEmpty())
+            currentLocationInterface.onProviderDisabled();
+        else
+            currentLocationInterface.onProviderDisabledSuggestion();
     }
 
     @Override

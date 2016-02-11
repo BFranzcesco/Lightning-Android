@@ -16,7 +16,7 @@ public class RemoteData {
     private static final String WEATHER_MAP_API = "http://api.openweathermap.org/data/2.5/weather?lat=%s&lon=%s&units=metric&lang=%s";
     private static final String FORECAST_MAP_API = "http://api.openweathermap.org/data/2.5/forecast?lat=%s&lon=%s&units=metric&lang=%s";
 
-    private static JSONObject getRemoteData(Context context, Location location, String dataType, String countryCode) {
+    private static JSONObject getRemoteData(Context context, MyLocation location, String dataType, String countryCode) {
         try {
             URL url = new URL(String.format(dataType, location.getLatitude(), location.getLongitude(), countryCode));
 
@@ -44,11 +44,11 @@ public class RemoteData {
         }
     }
 
-    public static JSONObject getWeather(Context context, Location location) {
+    public static JSONObject getWeather(Context context, MyLocation location) {
         return getRemoteData(context, location, WEATHER_MAP_API, context.getResources().getString(R.string.country_code));
     }
 
-    public static JSONObject getForecast(Context context, Location location) {
+    public static JSONObject getForecast(Context context, MyLocation location) {
         return getRemoteData(context, location, FORECAST_MAP_API, context.getResources().getString(R.string.country_code));
     }
 }

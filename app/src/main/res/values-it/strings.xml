@@ -17,5 +17,5 @@
     <string name="enable_location_services">Abilita la geolocalizzazione dalle impostazioni e aggiorna il meteo.</string>
     <string name="go_to_settings">vai alle impostazioni</string>
     <string name="unable_to_find_weather">Meteo attualmente non disponibile per</string>
-
+    <string name="enable_location_services_suggestion">Per ricevere il meteo più accurato, abilita la geolocalizzazione dalle impostazioni.</string>
 </resources>

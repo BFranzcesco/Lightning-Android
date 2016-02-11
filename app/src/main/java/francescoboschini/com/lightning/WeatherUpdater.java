@@ -16,7 +16,7 @@ public class WeatherUpdater {
         this.updateWeatherInterface = updateWeatherInterface;
     }
 
-    public void getCurrentWeather(final Location location) {
+    public void getCurrentWeather(final MyLocation location) {
         handler = new Handler();
         new Thread(){
             public void run(){
@@ -38,7 +38,7 @@ public class WeatherUpdater {
         }.start();
     }
 
-    public void getForecast(final Location location, final long sunrise, final long sunset) {
+    public void getForecast(final MyLocation location, final long sunrise, final long sunset) {
         handler = new Handler();
         new Thread() {
             public void run() {
