@@ -2,8 +2,8 @@ package francescoboschini.com.lightning;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
-import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
@@ -19,19 +19,18 @@ import android.widget.TextView;
 
 import com.afollestad.materialdialogs.DialogAction;
 import com.afollestad.materialdialogs.MaterialDialog;
-
 import com.crashlytics.android.Crashlytics;
 import com.melnykov.fab.FloatingActionButton;
 
-import francescoboschini.com.lightning.Utils.StringUtils;
-import francescoboschini.com.lightning.Utils.WeatherIconHandler;
-import francescoboschini.com.lightning.Utils.WeatherUtils;
-
-import io.fabric.sdk.android.Fabric;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import francescoboschini.com.lightning.Utils.StringUtils;
+import francescoboschini.com.lightning.Utils.WeatherIconHandler;
+import francescoboschini.com.lightning.Utils.WeatherUtils;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity implements UpdateWeatherInterface, CurrentLocationInterface {
 
@@ -47,12 +46,15 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     private CurrentLocation currentLocation;
     private boolean isShowing = false;
     private View nightView;
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Fabric.with(this, new Crashlytics());
         setContentView(R.layout.coordinator_layout);
+
+        sharedPreferences = getSharedPreferences("APP_PREFERENCES", MODE_PRIVATE);
 
         weatherUpdater = new WeatherUpdater(getApplicationContext(), this);
         currentLocation = new CurrentLocation(getApplicationContext(), this);
@@ -172,13 +174,32 @@ public class MainActivity extends AppCompatActivity implements UpdateWeatherInte
     }
 
     private void showSuggestEnableLocationServices() {
-        Snackbar.make(coordinatorLayout, R.string.enable_location_services_suggestion, Snackbar.LENGTH_LONG)
-                .setAction(getResources().getString(R.string.go_to_settings), new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        goToLocationSettings();
-                    }
-                }).show();
+        if (!sharedPreferences.getBoolean("DONT_SHOW_ENABLE_LOCATION_SUGGESTION", false)) {
+            MaterialDialog enableLocationServicesDialog = new MaterialDialog.Builder(this)
+                    .titleColorRes(R.color.light_blue)
+                    .contentColor(getResources().getColor(R.color.blue_night))
+                    .backgroundColorRes(R.color.white)
+                    .widgetColor(getResources().getColor(R.color.light_blue))
+                    .content(getResources().getString(R.string.enable_location_services_suggestion))
+                    .positiveText(getResources().getString(R.string.go_to_settings))
+                    .negativeText(R.string.dont_show_again)
+                    .onPositive(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            dialog.dismiss();
+                            goToLocationSettings();
+                        }
+                    })
+                    .onNegative(new MaterialDialog.SingleButtonCallback() {
+                        @Override
+                        public void onClick(@NonNull MaterialDialog dialog, @NonNull DialogAction which) {
+                            sharedPreferences.edit().putBoolean("DONT_SHOW_ENABLE_LOCATION_SUGGESTION", true).apply();
+                            dialog.dismiss();
+                        }
+                    }).build();
+
+            enableLocationServicesDialog.show();
+        }
     }
 
     @Override
